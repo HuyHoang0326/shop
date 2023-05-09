@@ -20,7 +20,8 @@ class LoginControlller extends Controller
     public function postLogin(Request $request){
         $rules = [
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
+            'permission'
         ];
         $messages =[
             'email.required' => 'nhập email',

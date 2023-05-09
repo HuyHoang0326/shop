@@ -41,14 +41,14 @@ class DatabaseSeeder extends Seeder
         
     //     DB::table('users')->insert($user);
 
-       for($i=0; $i<5; $i++){
-            $category[] = [
-                'name' => 'category'.($i+1),
-                'quatity' => 1
-            ];
-       };
-       DB::table('category')->insert($category);
+    //    for($i=0; $i<5; $i++){
+    //         $category[] = [
+    //             'name' => 'category'.($i+1),
+    //             'quatity' => 1
+    //         ];
+    //    };
+    //    DB::table('category')->insert($category);
 
     }
     
-}
+ }

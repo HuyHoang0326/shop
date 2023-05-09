@@ -1,5 +1,5 @@
-@extends('client.layout');
-@section('content');
+@extends('client.layout')
+@section('content')
 <!doctype html>
 <html class="no-js" lang="en">
 

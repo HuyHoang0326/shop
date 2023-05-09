@@ -70,34 +70,60 @@
     @endif
 
     <!-- Phần nội dung riêng của action  -->
-        <form class="form-horizontal " action="{{ route('route_Backend_Test_Update',['id'=>request()->route('id')]) }}" method="post" enctype="multipart/form-data">
+        <form class="form-horizontal " action="{{ route('route_Backend_'.$page.'_Update',['id'=>request()->route('id')]) }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="ten_de_thi" class="col-md-3 col-sm-4 control-label">Tên người dùng <span class="text-danger">(*)</span></label>
-
-                            <div class="col-md-9 col-sm-8">
-                                <input type="text" name="name" id="name" class="form-control" value="{{ $objItem->name }}">
-                                <span id="mes_sdt"></span>
+                        @foreach ($fields as $item)
+                            <div class="form-group">
+                                <label for="ten_de_thi" class="col-md-3 col-sm-4 control-label"> {{ $item }} <span class="text-danger">(*)</span></label>
+                                <div class="col-md-9 col-sm-8">
+                                    {{-- only field category product show name category --}}
+                                    @if($page == 'Product' && $item == 'category')
+                                        <select name="category" id="category">
+                                            @foreach ($category as $categoryItem){
+                                                <option 
+                                                value="{{ $categoryItem->id }}" 
+                                                @if($categoryItem->id == $objItem->category)
+                                                    {{ 'selected' }}
+                                                @endif
+                                                >
+                                                    {{ $categoryItem->name }}
+                                                </option>
+                                            }
+                                            @endforeach
+                                        </select>
+                                    @elseif($page == 'Product' && $item == 'image')
+                                        <input type="file" name="image" id="image" value='C:\\fakepath\\{{ $objItem->image }}'>
+                                        <br>
+                                        <img src="{{ asset('img/product/'.$objItem->image) }}" alt="" width="120px">
+                                    {{-- Order_Origin page -----------------------------------------------}}
+                                    {{-- @elseif($page == 'Order_Origin' && $item != 'status')
+                                        <input type="text" value="{{ $objItem->$item }}" disabled>  --}}
+                                    @else
+                                        {{-- all field of all page out if --}}
+                                        <input type= @if($item == 'email' )
+                                                        {{ 'email' }}
+                                                @elseif($item == 'password')
+                                                    {{ 'password' }}
+                                                @else
+                                                    {{ 'text' }}
+                                                @endif
+                                            name="{{ $item }}" 
+                                            id="{{ $item }}" 
+                                            class="form-control" 
+                                            value="{{ $objItem->$item }}"
+                                            @if($page == 'Category' && $item == 'quantity' || $item == 'id'||$page == 'Order_Origin' && $item != 'status') 
+                                                {{ 'disabled' }}
+                                            @endif
+                                        >
+                                    
+                                    @endif
+                                    <span id="mes_sdt"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="email" class="col-md-3 col-sm-4 control-label">Email <span class="text-danger">(*)</span></label>
-                            <div class="col-md-9 col-sm-8">
-                                <input type="text" name="price" id="email" class="form-control" value="{{ $objItem->price }}">
-                                <span id="mes_sdt"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="email" class="col-md-3 col-sm-4 control-label">Mật khẩu <span class="text-danger">(*)</span></label>
-                            <div class="col-md-9 col-sm-8">
-                                <input type="password" name="quantity" id="password" class="form-control" value="{{ $objItem->quantyti }}">
-                                <span id="mes_sdt"></span>
-                            </div>
-                        </div>
-
+                        @endforeach
                     </div>
                 </div>
 
@@ -105,7 +131,7 @@
             <!-- /.box-body -->
             <div class="text-center">
                 <button type="submit" class="btn btn-primary"> Save</button>
-                <a href="{{ route('route_BackEnd_test_index') }}" class="btn btn-default">Cancel</a>
+                <a href="{{ route('route_BackEnd_productList') }}" class="btn btn-default">Cancel</a>
             </div>
             <!-- /.box-footer -->
         </form>

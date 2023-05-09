@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\api\OrderOriginApiController;
+use App\Http\Controllers\auth\LoginClientController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -13,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware(['client'])->group(function(){
+    Route::post('order_origin/add',[OrderOriginApiController::class,'store'])->name('route_api_Backend_Order_Origin_Add');
 });

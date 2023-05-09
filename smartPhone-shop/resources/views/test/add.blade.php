@@ -75,29 +75,49 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="ten_de_thi" class="col-md-3 col-sm-4 control-label">Tên người dùng <span class="text-danger">(*)</span></label>
-
-                            <div class="col-md-9 col-sm-8">
-                                <input type="text" name="name" id="name" class="form-control" value="@isset($request['name']){{ $request['name'] }}@endisset">
-                                <span id="mes_sdt"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="email" class="col-md-3 col-sm-4 control-label">Email <span class="text-danger">(*)</span></label>
-                            <div class="col-md-9 col-sm-8">
-                                <input type="text" name="email" id="email" class="form-control" value="@isset($request['email']){{ $request['email'] }}@endisset">
-                                <span id="mes_sdt"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="email" class="col-md-3 col-sm-4 control-label">Mật khẩu <span class="text-danger">(*)</span></label>
-                            <div class="col-md-9 col-sm-8">
-                                <input type="password" name="password" id="password" class="form-control" value="@isset($request['password']){{ $request['password'] }}@endisset">
-                                <span id="mes_sdt"></span>
-                            </div>
-                        </div>
-
+                        @foreach ($fields as $item)
+                            @if($item != 'id')
+                                <div class="form-group">
+                                    <label for="ten_de_thi" class="col-md-3 col-sm-4 control-label"> {{ $item }} <span class="text-danger">(*)</span></label>
+                                    <div class="col-md-9 col-sm-8">
+                                        {{-- only field category product show name category --}}
+                                    @if($page == 'Product' && $item == 'category')
+                                    <select name="category" id="category" style="width: 100%">
+                                        @foreach ($category as $categoryItem){
+                                            <option 
+                                                value={{ $categoryItem->id }} 
+                                                style="width: 100%"
+                                            >
+                                                {{ $categoryItem->name }}
+                                            </option>
+                                        }
+                                        @endforeach
+                                    </select>
+                                    @elseif($page == 'Product' && $item == 'image')
+                                        <input type="file" name="image" id="image" >
+                                    @else
+                                    {{-- all field of all page out if --}}
+                                    <input type= @if($item == 'email' )
+                                                    {{ 'email' }}
+                                            @elseif($item == 'password')
+                                                {{ 'password' }}
+                                            @else
+                                                {{ 'text' }}
+                                            @endif
+                                        name="{{ $item }}" 
+                                        id="{{ $item }}" 
+                                        class="form-control" 
+                                        value=""
+                                        @if($page == 'Category' && $item == 'quantity' || $item == 'id') 
+                                            {{ 'disabled' }}
+                                        @endif
+                                    >
+                                @endif
+                                        <span id="mes_sdt"></span>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
                     </div>
                 </div>
 
@@ -105,7 +125,7 @@
             <!-- /.box-body -->
             <div class="text-center">
                 <button type="submit" class="btn btn-primary"> Save</button>
-                <a href="{{ route('route_BackEnd_test_index') }}" class="btn btn-default">Cancel</a>
+                <a href="{{ route('route_BackEnd_productList') }}" class="btn btn-default">Cancel</a>
             </div>
             <!-- /.box-footer -->
         </form>

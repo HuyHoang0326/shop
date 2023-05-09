@@ -1,4 +1,49 @@
 @extends('client.layout')
+@section('header_bottom')
+<div class="header_bottom">
+    <div class="row align-items-center">
+        <div class="column1 col-lg-3 col-md-6">
+            <div class="categories_menu categories_three">
+                <div class="categories_title">
+                    <h2 class="categori_toggle">ALL CATEGORIES</h2>
+                </div>
+                <div class="categories_menu_toggle">
+                    <ul>
+                        @foreach($category as $categoryItem)
+                            <li><a href="#"> {{ $categoryItem->name }}</a></li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="column2 col-lg-6 ">
+            <div class="search_container">
+                <form action="#">
+                    <div class="hover_category">
+                        <select class="select_option" name="select" id="categori2">
+                            <option selected value="">All Categories</option>
+                            @foreach($category as $categoryItem){
+                                <option value="{{ $categoryItem->id }}">{{ $categoryItem->name }}</option>
+                            }
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="search_box">
+                        <input placeholder="Search product..." type="text">
+                        <button type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <div class="column3 col-lg-3 col-md-6">
+            <div class="header_bigsale">
+                <a href="#">BIG SALE BLACK FRIDAY</a>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
 @section('content')
 
     <!--header area end-->
@@ -167,96 +212,19 @@
         <div class="categories_product_area mb-55">
             <div class="container">
                 <div class="categories_product_inner">
-                    <div class="single_categories_product">
-                        <div class="categories_product_content">
-                            <h4><a href="shop.html"> Cells & Tablets</a></h4>
-                            <p>12 Products</p>
-                        </div>
-                        <div class="categories_product_thumb">
-                            <a href="shop.html"><img src="{{ asset('img/s-product/category1.jpg') }}" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="single_categories_product">
-                        <div class="categories_product_content">
-                            <h4><a href="shop.html"> Computer</a></h4>
-                            <p>24 Products</p>
-                        </div>
-                        <div class="categories_product_thumb">
-                            <a href="shop.html"><img src="{{ asset('img/s-product/category2.jpg') }}" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="single_categories_product">
-                        <div class="categories_product_content">
-                            <h4><a href="shop.html"> Fashion</a></h4>
-                            <p>22 Products</p>
-                        </div>
-                        <div class="categories_product_thumb">
-                            <a href="shop.html"><img src="{{ asset('img/s-product/category3.jpg') }}" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="single_categories_product">
-                        <div class="categories_product_content">
-                            <h4><a href="shop.html"> Sunglasses</a></h4>
-                            <p>06 Products</p>
-                        </div>
-                        <div class="categories_product_thumb">
-                            <a href="shop.html"><img src="{{ asset('img/s-product/category4.jpg') }}" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="single_categories_product">
-                        <div class="categories_product_content">
-                            <h4><a href="shop.html"> Baby & Kids</a></h4>
-                            <p>20 Products</p>
-                        </div>
-                        <div class="categories_product_thumb">
-                            <a href="shop.html"><img src="{{ asset('img/s-product/category5.jpg') }}" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="single_categories_product">
-                        <div class="categories_product_content">
-                            <h4><a href="shop.html"> Accessories</a></h4>
-                            <p>04 Products</p>
-                        </div>
-                        <div class="categories_product_thumb">
-                            <a href="shop.html"><img src="{{ asset('img/s-product/category6.jpg') }}" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="single_categories_product">
-                        <div class="categories_product_content">
-                            <h4><a href="shop.html"> Cells & Tablets</a></h4>
-                            <p>12 Products</p>
-                        </div>
-                        <div class="categories_product_thumb">
-                            <a href="shop.html"><img src="{{ asset('img/s-product/category7.jpg') }}" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="single_categories_product">
-                        <div class="categories_product_content">
-                            <h4><a href="shop.html"> Accessories</a></h4>
-                            <p>12 Products</p>
-                        </div>
-                        <div class="categories_product_thumb">
-                            <a href="shop.html"><img src="{{ asset('img/s-product/category8.jpg') }}" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="single_categories_product">
-                        <div class="categories_product_content">
-                            <h4><a href="shop.html"> Cells & Tablets</a></h4>
-                            <p>12 Products</p>
-                        </div>
-                        <div class="categories_product_thumb">
-                            <a href="shop.html"><img src="{{ asset('img/s-product/category9.jpg') }}" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="single_categories_product">
-                        <div class="categories_product_content">
-                            <h4><a href="shop.html"> Baby & Kids</a></h4>
-                            <p>12 Products</p>
-                        </div>
-                        <div class="categories_product_thumb">
-                            <a href="shop.html"><img src="{{ asset('img/s-product/category10.jpg') }}" alt=""></a>
-                        </div>
-                    </div>
+                    @foreach($category as $categoryItem)
+                        @if($categoryItem->quantity)
+                            <div class="single_categories_product">
+                                <div class="categories_product_content">
+                                    <h4><a href="shop.html">{{ $categoryItem->name }}</a></h4>
+                                    <p>{{ $categoryItem->quantity }}</p>
+                                </div>
+                                <div class="categories_product_thumb">
+                                    <a href="shop.html"><img src="{{ asset('img/s-product/category1.jpg') }}" alt=""></a>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -273,11 +241,6 @@
                             </div>
                             <div class="product_tab_btn">
                                 <ul class="nav" role="tablist" id="nav-tab">
-                                    <li>
-                                        <a class="active" data-toggle="tab" href="#Fashion" role="tab" aria-controls="Fashion" aria-selected="true">
-                                            Fashion & Clothing
-                                        </a>
-                                    </li>
                                     <li>
                                         <a data-toggle="tab" href="#Games" role="tab" aria-controls="Games" aria-selected="false">
                                             Games & Consoles
@@ -301,442 +264,105 @@
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="Fashion" role="tabpanel">
                         <div class="product_carousel product_style product_column5 owl-carousel">
-                            <article class="single_product">
-                                <figure>
-
-                                    <div class="product_thumb">
-                                        <a class="primary_img" href="product-countdown.html"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-countdown.html"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
-                                        <div class="label_product">
-                                            <span class="label_sale">Sale</span>
-                                        </div>
-                                        <div class="action_links">
-                                            <ul>
-                                                <li class="wishlist"><a href="wishlist.html" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true" data-tippy="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
-                                                <li class="compare"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-tippy="Add to Compare"><i class="ion-ios-settings-strong"></i></a></li>
-                                                <li class="quick_button"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-bs-toggle="modal" data-bs-target="#modal_box" data-tippy="quick view"><i class="ion-ios-search-strong"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-countdown.html">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
-                                            <div class="price_box">
-                                                <span class="old_price">$86.00</span>
-                                                <span class="current_price">$79.00</span>
+                            @foreach($list['item'] as $product)
+                                @foreach($sale as $saleItem)
+                                    @if($saleItem->id_sale == 2 && $saleItem->id_product == $product->id)
+                                    <article class="single_product">
+                                        <figure>
+                                            <div class="product_thumb">
+                                                <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('storage/product/'.$product->image) }}" alt=""></a>
+                                                <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/'.$product->image) }}" alt=""></a>
+                                                <div class="label_product">
+                                                    <span class="label_sale">Sale</span>
+                                                </div>
+                                                <div class="action_links">
+                                                    <ul>
+                                                        <li class="wishlist"><a href="wishlist.html" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true" data-tippy="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
+                                                        <li class="compare"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-tippy="Add to Compare"><i class="ion-ios-settings-strong"></i></a></li>
+                                                        <li class="quick_button"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-bs-toggle="modal" data-bs-target="#modal_box" data-tippy="quick view"><i class="ion-ios-search-strong"></i></a></li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                            <div class="countdown_text">
-                                                <p><span>Hurry Up!</span> Offers ends in: </p>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
-                                        </div>
+                                            <div class="product_content">
+                                                <div class="product_content_inner">
+                                                    <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">{{ $product->name }}</a></h4>
+                                                    <div class="price_box">
+                                                        <span class="old_price">${{ $product->price }}</span>
+                                                        <span class="id_product" hidden>{{ $product->id }}</span>
+                                                        <span class="current_price"> @foreach($sale as $saleItem)
+                                                            @if($saleItem->id_product == $product->id)
+                                                            <p class="sale_product" hidden>{{ $saleItem->id_sale }}</p>
+                                                               ${{($product->price *( $saleItem->price / 100)) }}
+                                                            @endif
+                                                        @endforeach</span>
+                                                    </div>
+                                                    <div class="countdown_text">
+                                                        <p><span>Hurry Up!</span> Offers ends in: </p>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="add_to_cart" name="add_to_cart">
+                                                    {{-- <button title="Add to cart">Add to cart</button> --}}
+                                                    <button title="Add to cart">Add to cart</button>
+                                                </div>
 
-                                    </div>
-                                </figure>
-                            </article>
-                            <article class="single_product">
-                                <figure>
-
-                                    <div class="product_thumb">
-                                        <a class="primary_img" href="product-countdown.html"><img src="{{ asset('img/product/product3.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-countdown.html"><img src="{{ asset('img/product/product4.jpg') }}" alt=""></a>
-                                        <div class="label_product">
-                                            <span class="label_sale">Sale</span>
-                                        </div>
-                                        <div class="action_links">
-                                            <ul>
-                                                <li class="wishlist"><a href="wishlist.html" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true" data-tippy="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
-                                                <li class="compare"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-tippy="Add to Compare"><i class="ion-ios-settings-strong"></i></a></li>
-                                                <li class="quick_button"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-bs-toggle="modal" data-bs-target="#modal_box" data-tippy="quick view"><i class="ion-ios-search-strong"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-countdown.html">Donec tempus pretium arcu et faucibus commodo</a></h4>
-                                            <div class="price_box">
-                                                <span class="old_price">$82.00</span>
-                                                <span class="current_price">$75.00</span>
                                             </div>
-                                            <div class="countdown_text">
-                                                <p><span>Hurry Up!</span> Offers ends in: </p>
-                                            </div>
-                                           
-                                        </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
-                                        </div>
-
-                                    </div>
-                                </figure>
-                            </article>
-                            <article class="single_product">
-                                <figure>
-
-                                    <div class="product_thumb">
-                                        <a class="primary_img" href="product-countdown.html"><img src="{{ asset('img/product/product5.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-countdown.html"><img src="{{ asset('img/product/product6.jpg') }}" alt=""></a>
-                                        <div class="label_product">
-                                            <span class="label_sale">Sale</span>
-                                        </div>
-                                        <div class="action_links">
-                                            <ul>
-                                                <li class="wishlist"><a href="wishlist.html" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true" data-tippy="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
-                                                <li class="compare"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-tippy="Add to Compare"><i class="ion-ios-settings-strong"></i></a></li>
-                                                <li class="quick_button"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-bs-toggle="modal" data-bs-target="#modal_box" data-tippy="quick view"><i class="ion-ios-search-strong"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-countdown.html">Natus erro at congue massa commodo sit Natus erro</a></h4>
-                                            <div class="price_box">
-                                                <span class="old_price">$80.00</span>
-                                                <span class="current_price">$70.00</span>
-                                            </div>
-                                            <div class="countdown_text">
-                                                <p><span>Hurry Up!</span> Offers ends in: </p>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
-                                        </div>
-
-                                    </div>
-                                </figure>
-                            </article>
-                            <article class="single_product">
-                                <figure>
-
-                                    <div class="product_thumb">
-                                        <a class="primary_img" href="product-countdown.html"><img src="{{ asset('img/product/product7.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-countdown.html"><img src="{{ asset('img/product/product8.jpg') }}" alt=""></a>
-                                        <div class="label_product">
-                                            <span class="label_sale">Sale</span>
-                                        </div>
-                                        <div class="action_links">
-                                            <ul>
-                                                <li class="wishlist"><a href="wishlist.html" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true" data-tippy="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
-                                                <li class="compare"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-tippy="Add to Compare"><i class="ion-ios-settings-strong"></i></a></li>
-                                                <li class="quick_button"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-bs-toggle="modal" data-bs-target="#modal_box" data-tippy="quick view"><i class="ion-ios-search-strong"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-countdown.html">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
-                                            <div class="price_box">
-                                                <span class="old_price">$76.00</span>
-                                                <span class="current_price">$75.00</span>
-                                            </div>
-                                            <div class="countdown_text">
-                                                <p><span>Hurry Up!</span> Offers ends in: </p>
-                                            </div>
-                                              
-                                        </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
-                                        </div>
-
-                                    </div>
-                                </figure>
-                            </article>
-                            <article class="single_product">
-                                <figure>
-
-                                    <div class="product_thumb">
-                                        <a class="primary_img" href="product-countdown.html"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-countdown.html"><img src="{{ asset('img/product/product10.jpg') }}" alt=""></a>
-                                        <div class="label_product">
-                                            <span class="label_sale">Sale</span>
-                                        </div>
-                                        <div class="action_links">
-                                            <ul>
-                                                <li class="wishlist"><a href="wishlist.html" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true" data-tippy="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
-                                                <li class="compare"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-tippy="Add to Compare"><i class="ion-ios-settings-strong"></i></a></li>
-                                                <li class="quick_button"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-bs-toggle="modal" data-bs-target="#modal_box" data-tippy="quick view"><i class="ion-ios-search-strong"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-countdown.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
-                                            <div class="price_box">
-                                                <span class="old_price">$72.00</span>
-                                                <span class="current_price">$70.00</span>
-                                            </div>
-                                            <div class="countdown_text">
-                                                <p><span>Hurry Up!</span> Offers ends in: </p>
-                                            </div>
-                                              
-                                        </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
-                                        </div>
-
-                                    </div>
-                                </figure>
-                            </article>
-                            <article class="single_product">
-                                <figure>
-
-                                    <div class="product_thumb">
-                                        <a class="primary_img" href="product-countdown.html"><img src="{{ asset('img/product/product11.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-countdown.html"><img src="{{ asset('img/product/product12.jpg') }}" alt=""></a>
-                                        <div class="label_product">
-                                            <span class="label_sale">Sale</span>
-                                        </div>
-                                        <div class="action_links">
-                                            <ul>
-                                                <li class="wishlist"><a href="wishlist.html" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true" data-tippy="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
-                                                <li class="compare"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-tippy="Add to Compare"><i class="ion-ios-settings-strong"></i></a></li>
-                                                <li class="quick_button"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-bs-toggle="modal" data-bs-target="#modal_box" data-tippy="quick view"><i class="ion-ios-search-strong"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-countdown.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
-                                            <div class="price_box">
-                                                <span class="old_price">$65.00</span>
-                                                <span class="current_price">$60.00</span>
-                                            </div>
-                                            <div class="countdown_text">
-                                                <p><span>Hurry Up!</span> Offers ends in: </p>
-                                            </div>
-                                             
-                                        </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
-                                        </div>
-
-                                    </div>
-                                </figure>
-                            </article>
+                                        </figure>
+                                    </article>
+                                @endif
+                            @endforeach
+                        @endforeach
                         </div>
                     </div>
                     <div class="tab-pane fade" id="Games" role="tabpanel">
                         <div class="product_carousel product_style product_column5 owl-carousel">
-                            <article class="single_product">
-                                <figure>
-
-                                    <div class="product_thumb">
-                                        <a class="primary_img" href="product-countdown.html"><img src="{{ asset('img/product/product5.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-countdown.html"><img src="{{ asset('img/product/product6.jpg') }}" alt=""></a>
-                                        <div class="label_product">
-                                            <span class="label_sale">Sale</span>
-                                        </div>
-                                        <div class="action_links">
-                                            <ul>
-                                                <li class="wishlist"><a href="wishlist.html" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true" data-tippy="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
-                                                <li class="compare"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-tippy="Add to Compare"><i class="ion-ios-settings-strong"></i></a></li>
-                                                <li class="quick_button"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-bs-toggle="modal" data-bs-target="#modal_box" data-tippy="quick view"><i class="ion-ios-search-strong"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-countdown.html">Natus erro at congue massa commodo sit Natus erro</a></h4>
-                                            <div class="price_box">
-                                                <span class="old_price">$80.00</span>
-                                                <span class="current_price">$70.00</span>
+                            @foreach($list['item'] as $product)
+                            @foreach($sale as $saleItem)
+                                @if($saleItem->id_sale == 1 && $saleItem->id_product == $product->id)
+                                <article class="single_product">
+                                    <figure>
+                                        <div class="product_thumb">
+                                            <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('storage/product/'.$product->image) }}" alt=""></a>
+                                            <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/'.$product->image) }}" alt=""></a>
+                                            <div class="label_product">
+                                                <span class="label_sale">Sale</span>
                                             </div>
-                                            <div class="countdown_text">
-                                                <p><span>Hurry Up!</span> Offers ends in: </p>
+                                            <div class="action_links">
+                                                <ul>
+                                                    <li class="wishlist"><a href="wishlist.html" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true" data-tippy="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
+                                                    <li class="compare"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-tippy="Add to Compare"><i class="ion-ios-settings-strong"></i></a></li>
+                                                    <li class="quick_button"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-bs-toggle="modal" data-bs-target="#modal_box" data-tippy="quick view"><i class="ion-ios-search-strong"></i></a></li>
+                                                </ul>
                                             </div>
-                                            
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
-                                        </div>
-
-                                    </div>
-                                </figure>
-                            </article>
-                            <article class="single_product">
-                                <figure>
-
-                                    <div class="product_thumb">
-                                        <a class="primary_img" href="product-countdown.html"><img src="{{ asset('img/product/product7.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-countdown.html"><img src="{{ asset('img/product/product8.jpg') }}" alt=""></a>
-                                        <div class="label_product">
-                                            <span class="label_sale">Sale</span>
-                                        </div>
-                                        <div class="action_links">
-                                            <ul>
-                                                <li class="wishlist"><a href="wishlist.html" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true" data-tippy="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
-                                                <li class="compare"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-tippy="Add to Compare"><i class="ion-ios-settings-strong"></i></a></li>
-                                                <li class="quick_button"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-bs-toggle="modal" data-bs-target="#modal_box" data-tippy="quick view"><i class="ion-ios-search-strong"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-countdown.html">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
-                                            <div class="price_box">
-                                                <span class="old_price">$76.00</span>
-                                                <span class="current_price">$75.00</span>
+                                        <div class="product_content">
+                                            <div class="product_content_inner">
+                                                <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">{{ $product->name }}</a></h4>
+                                                <div class="price_box">
+                                                    <span class="old_price">${{ $product->price }}</span>
+                                                    <span class="id_product" hidden>{{ $product->id }}</span>
+                                                    <span class="current_price"> @foreach($sale as $saleItem)
+                                                        @if($saleItem->id_product == $product->id)
+                                                            <p class="sale_product" hidden>{{ $saleItem->id_sale }}</p>
+                                                           ${{$product->price *( $saleItem->price / 100) }}
+                                                        @endif
+                                                    @endforeach</span>
+                                                </div>
+                                                <div class="countdown_text">
+                                                    <p><span>Hurry Up!</span> Offers ends in: </p>
+                                                </div>
+                                                
                                             </div>
-                                            <div class="countdown_text">
-                                                <p><span>Hurry Up!</span> Offers ends in: </p>
+                                            <div class="add_to_cart" name="add_to_cart" name="add_to_cart">
+                                                {{-- <button title="Add to cart">Add to cart</button> --}}
+                                                <button title="Add to cart">Add to cart</button>
                                             </div>
-                                              
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
-                                        </div>
-
-                                    </div>
-                                </figure>
-                            </article>
-                            <article class="single_product">
-                                <figure>
-
-                                    <div class="product_thumb">
-                                        <a class="primary_img" href="product-countdown.html"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-countdown.html"><img src="{{ asset('img/product/product10.jpg') }}" alt=""></a>
-                                        <div class="label_product">
-                                            <span class="label_sale">Sale</span>
-                                        </div>
-                                        <div class="action_links">
-                                            <ul>
-                                                <li class="wishlist"><a href="wishlist.html" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true" data-tippy="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
-                                                <li class="compare"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-tippy="Add to Compare"><i class="ion-ios-settings-strong"></i></a></li>
-                                                <li class="quick_button"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-bs-toggle="modal" data-bs-target="#modal_box" data-tippy="quick view"><i class="ion-ios-search-strong"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-countdown.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
-                                            <div class="price_box">
-                                                <span class="old_price">$72.00</span>
-                                                <span class="current_price">$70.00</span>
-                                            </div>
-                                            <div class="countdown_text">
-                                                <p><span>Hurry Up!</span> Offers ends in: </p>
-                                            </div>
-                                              
-                                        </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
-                                        </div>
-
-                                    </div>
-                                </figure>
-                            </article>
-                            <article class="single_product">
-                                <figure>
-
-                                    <div class="product_thumb">
-                                        <a class="primary_img" href="product-countdown.html"><img src="{{ asset('img/product/product11.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-countdown.html"><img src="{{ asset('img/product/product12.jpg') }}" alt=""></a>
-                                        <div class="label_product">
-                                            <span class="label_sale">Sale</span>
-                                        </div>
-                                        <div class="action_links">
-                                            <ul>
-                                                <li class="wishlist"><a href="wishlist.html" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true" data-tippy="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
-                                                <li class="compare"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-tippy="Add to Compare"><i class="ion-ios-settings-strong"></i></a></li>
-                                                <li class="quick_button"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-bs-toggle="modal" data-bs-target="#modal_box" data-tippy="quick view"><i class="ion-ios-search-strong"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-countdown.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
-                                            <div class="price_box">
-                                                <span class="old_price">$65.00</span>
-                                                <span class="current_price">$60.00</span>
-                                            </div>
-                                            <div class="countdown_text">
-                                                <p><span>Hurry Up!</span> Offers ends in: </p>
-                                            </div>
-                                             
-                                        </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
-                                        </div>
-
-                                    </div>
-                                </figure>
-                            </article>
-                            <article class="single_product">
-                                <figure>
-
-                                    <div class="product_thumb">
-                                        <a class="primary_img" href="product-countdown.html"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-countdown.html"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
-                                        <div class="label_product">
-                                            <span class="label_sale">Sale</span>
-                                        </div>
-                                        <div class="action_links">
-                                            <ul>
-                                                <li class="wishlist"><a href="wishlist.html" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true" data-tippy="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
-                                                <li class="compare"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-tippy="Add to Compare"><i class="ion-ios-settings-strong"></i></a></li>
-                                                <li class="quick_button"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-bs-toggle="modal" data-bs-target="#modal_box" data-tippy="quick view"><i class="ion-ios-search-strong"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-countdown.html">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
-                                            <div class="price_box">
-                                                <span class="old_price">$86.00</span>
-                                                <span class="current_price">$79.00</span>
-                                            </div>
-                                            <div class="countdown_text">
-                                                <p><span>Hurry Up!</span> Offers ends in: </p>
-                                            </div>
-                                              
-                                        </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
-                                        </div>
-
-                                    </div>
-                                </figure>
-                            </article>
-                            <article class="single_product">
-                                <figure>
-
-                                    <div class="product_thumb">
-                                        <a class="primary_img" href="product-countdown.html"><img src="{{ asset('img/product/product3.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-countdown.html"><img src="{{ asset('img/product/product4.jpg') }}" alt=""></a>
-                                        <div class="label_product">
-                                            <span class="label_sale">Sale</span>
-                                        </div>
-                                        <div class="action_links">
-                                            <ul>
-                                                <li class="wishlist"><a href="wishlist.html" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true" data-tippy="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
-                                                <li class="compare"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-tippy="Add to Compare"><i class="ion-ios-settings-strong"></i></a></li>
-                                                <li class="quick_button"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-bs-toggle="modal" data-bs-target="#modal_box" data-tippy="quick view"><i class="ion-ios-search-strong"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-countdown.html">Donec tempus pretium arcu et faucibus commodo</a></h4>
-                                            <div class="price_box">
-                                                <span class="old_price">$82.00</span>
-                                                <span class="current_price">$75.00</span>
-                                            </div>
-                                            <div class="countdown_text">
-                                                <p><span>Hurry Up!</span> Offers ends in: </p>
-                                            </div>
-                                              
-                                        </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
-                                        </div>
-
-                                    </div>
-                                </figure>
-                            </article>
+                                    </figure>
+                                </article>
+                            @endif
+                        @endforeach
+                    @endforeach
                         </div>
                     </div>
                     <div class="tab-pane fade" id="Speaker" role="tabpanel">
@@ -745,8 +371,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-countdown.html"><img src="{{ asset('img/product/product7.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-countdown.html"><img src="{{ asset('img/product/product8.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product7.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product8.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -760,18 +386,24 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-countdown.html">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$76.00</span>
-                                                <span class="current_price">$75.00</span>
+                                                <span class="current_price"> @foreach($sale as $saleItem)
+                                                    @if($saleItem->id_product == $product->id)
+                                                        <p class="sale_product" hidden>{{ $saleItem->id_sale }}</p>
+                                                       ${{$product->price *( $saleItem->price / 100) }}
+                                                    @endif
+                                                @endforeach</span>
                                             </div>
                                             <div class="countdown_text">
                                                 <p><span>Hurry Up!</span> Offers ends in: </p>
                                             </div>
                                               
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            {{-- <button title="Add to cart">Add to cart</button> --}}
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -780,8 +412,8 @@
                             <article class="single_product">
                                 <figure>
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-countdown.html"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-countdown.html"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -795,7 +427,7 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-countdown.html">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$86.00</span>
                                                 <span class="current_price">$79.00</span>
@@ -805,8 +437,9 @@
                                             </div>
                                               
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            {{-- <button title="Add to cart">Add to cart</button> --}}
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -816,8 +449,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-countdown.html"><img src="{{ asset('img/product/product3.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-countdown.html"><img src="{{ asset('img/product/product4.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product3.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product4.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -831,7 +464,7 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-countdown.html">Donec tempus pretium arcu et faucibus commodo</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Donec tempus pretium arcu et faucibus commodo</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$82.00</span>
                                                 <span class="current_price">$75.00</span>
@@ -841,8 +474,8 @@
                                             </div>
                                               
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -852,8 +485,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-countdown.html"><img src="{{ asset('img/product/product5.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-countdown.html"><img src="{{ asset('img/product/product6.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product5.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product6.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -867,7 +500,7 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-countdown.html">Natus erro at congue massa commodo sit Natus erro</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Natus erro at congue massa commodo sit Natus erro</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$80.00</span>
                                                 <span class="current_price">$70.00</span>
@@ -877,8 +510,8 @@
                                             </div>
                                             
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -888,8 +521,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-countdown.html"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-countdown.html"><img src="{{ asset('img/product/product10.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product10.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -903,7 +536,7 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-countdown.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$72.00</span>
                                                 <span class="current_price">$70.00</span>
@@ -913,8 +546,8 @@
                                             </div>
                                               
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -924,8 +557,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-countdown.html"><img src="{{ asset('img/product/product11.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-countdown.html"><img src="{{ asset('img/product/product12.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product11.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product12.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -939,7 +572,7 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-countdown.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$65.00</span>
                                                 <span class="current_price">$60.00</span>
@@ -949,8 +582,8 @@
                                             </div>
                                              
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -964,8 +597,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-countdown.html"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-countdown.html"><img src="{{ asset('img/product/product10.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product10.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -979,7 +612,7 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-countdown.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$72.00</span>
                                                 <span class="current_price">$70.00</span>
@@ -989,8 +622,8 @@
                                             </div>
                                               
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -1000,8 +633,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-countdown.html"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-countdown.html"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -1015,7 +648,7 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-countdown.html">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$86.00</span>
                                                 <span class="current_price">$79.00</span>
@@ -1025,8 +658,8 @@
                                             </div>
                                               
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -1036,8 +669,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-countdown.html"><img src="{{ asset('img/product/product5.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-countdown.html"><img src="{{ asset('img/product/product6.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product5.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product6.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -1051,7 +684,7 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-countdown.html">Natus erro at congue massa commodo sit Natus erro</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Natus erro at congue massa commodo sit Natus erro</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$80.00</span>
                                                 <span class="current_price">$70.00</span>
@@ -1061,8 +694,8 @@
                                             </div>
                                             
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -1072,8 +705,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-countdown.html"><img src="{{ asset('img/product/product7.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-countdown.html"><img src="{{ asset('img/product/product8.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product7.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product8.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -1087,7 +720,7 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-countdown.html">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$76.00</span>
                                                 <span class="current_price">$75.00</span>
@@ -1097,8 +730,8 @@
                                             </div>
                                               
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -1107,8 +740,8 @@
                             <article class="single_product">
                                 <figure>
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-countdown.html"><img src="{{ asset('img/product/product3.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-countdown.html"><img src="{{ asset('img/product/product4.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product3.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product4.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -1122,7 +755,7 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-countdown.html">Donec tempus pretium arcu et faucibus commodo</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Donec tempus pretium arcu et faucibus commodo</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$82.00</span>
                                                 <span class="current_price">$75.00</span>
@@ -1132,8 +765,8 @@
                                             </div>
                                               
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -1143,8 +776,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-countdown.html"><img src="{{ asset('img/product/product11.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-countdown.html"><img src="{{ asset('img/product/product12.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product11.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product12.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -1158,7 +791,7 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-countdown.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$65.00</span>
                                                 <span class="current_price">$60.00</span>
@@ -1168,8 +801,8 @@
                                             </div>
                                              
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -1223,198 +856,52 @@
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="Computer3" role="tabpanel">
                         <div class="product_carousel product_style product_column5 owl-carousel">
-                            <article class="single_product">
-                                <figure>
-
-                                    <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product16.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product17.jpg') }}" alt=""></a>
-                                        <div class="label_product">
-                                            <span class="label_sale">Sale</span>
-                                        </div>
-                                        <div class="action_links">
-                                            <ul>
-                                                <li class="wishlist"><a href="wishlist.html" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true" data-tippy="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
-                                                <li class="compare"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-tippy="Add to Compare"><i class="ion-ios-settings-strong"></i></a></li>
-                                                <li class="quick_button"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-bs-toggle="modal" data-bs-target="#modal_box" data-tippy="quick view"><i class="ion-ios-search-strong"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Natus erro at congue massa commodo sit Natus erro</a></h4>
-                                            <div class="price_box">
-                                                <span class="old_price">$80.00</span>
-                                                <span class="current_price">$70.00</span>
+                            @foreach($list['item'] as $product)
+                            @foreach($sale as $saleItem)
+                                @if($saleItem->id_sale == 1 && $saleItem->id_product == $product->id)
+                                <article class="single_product">
+                                    <figure>
+                                        <div class="product_thumb">
+                                            <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('storage/product/'.$product->image) }}" alt=""></a>
+                                            <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/'.$product->image) }}" alt=""></a>
+                                            <div class="label_product">
+                                                <span class="label_sale">Sale</span>
+                                            </div>
+                                            <div class="action_links">
+                                                <ul>
+                                                    <li class="wishlist"><a href="wishlist.html" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true" data-tippy="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
+                                                    <li class="compare"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-tippy="Add to Compare"><i class="ion-ios-settings-strong"></i></a></li>
+                                                    <li class="quick_button"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-bs-toggle="modal" data-bs-target="#modal_box" data-tippy="quick view"><i class="ion-ios-search-strong"></i></a></li>
+                                                </ul>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
-                                        </div>
-
-                                    </div>
-                                </figure>
-                            </article>
-                            <article class="single_product">
-                                <figure>
-
-                                    <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product14.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product15.jpg') }}" alt=""></a>
-                                        <div class="label_product">
-                                            <span class="label_sale">Sale</span>
-                                        </div>
-                                        <div class="action_links">
-                                            <ul>
-                                                <li class="wishlist"><a href="wishlist.html" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true" data-tippy="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
-                                                <li class="compare"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-tippy="Add to Compare"><i class="ion-ios-settings-strong"></i></a></li>
-                                                <li class="quick_button"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-bs-toggle="modal" data-bs-target="#modal_box" data-tippy="quick view"><i class="ion-ios-search-strong"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
-                                            <div class="price_box">
-                                                <span class="old_price">$76.00</span>
-                                                <span class="current_price">$75.00</span>
+                                        <div class="product_content">
+                                            <div class="product_content_inner">
+                                                <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">{{ $product->name }}</a></h4>
+                                                <div class="price_box">
+                                                    <span class="old_price">${{ $product->price }}</span>
+                                                    <span class="id_product" hidden>{{ $product->id }}</span>
+                                                    <span class="current_price"> @foreach($sale as $saleItem)
+                                                        @if($saleItem->id_product == $product->id)
+                                                        <p class="sale_product" hidden>{{ $saleItem->id_sale }}</p>
+                                                           ${{$product->price *( $saleItem->price / 100) }}
+                                                        @endif
+                                                    @endforeach</span>
+                                                </div>
+                                                <div class="countdown_text">
+                                                    <p><span>Hurry Up!</span> Offers ends in: </p>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="add_to_cart" name="add_to_cart">
+                                                <button title="Add to cart">Add to cart</button>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
-                                        </div>
-
-                                    </div>
-                                </figure>
-                            </article>
-                            <article class="single_product">
-                                <figure>
-
-                                    <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product12.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product13.jpg') }}" alt=""></a>
-                                        <div class="label_product">
-                                            <span class="label_sale">Sale</span>
-                                        </div>
-                                        <div class="action_links">
-                                            <ul>
-                                                <li class="wishlist"><a href="wishlist.html" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true" data-tippy="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
-                                                <li class="compare"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-tippy="Add to Compare"><i class="ion-ios-settings-strong"></i></a></li>
-                                                <li class="quick_button"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-bs-toggle="modal" data-bs-target="#modal_box" data-tippy="quick view"><i class="ion-ios-search-strong"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
-                                            <div class="price_box">
-                                                <span class="old_price">$86.00</span>
-                                                <span class="current_price">$79.00</span>
-                                            </div>
-                                        </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
-                                        </div>
-
-                                    </div>
-                                </figure>
-                            </article>
-                            <article class="single_product">
-                                <figure>
-
-                                    <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product10.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product11.jpg') }}" alt=""></a>
-                                        <div class="label_product">
-                                            <span class="label_sale">Sale</span>
-                                        </div>
-                                        <div class="action_links">
-                                            <ul>
-                                                <li class="wishlist"><a href="wishlist.html" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true" data-tippy="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
-                                                <li class="compare"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-tippy="Add to Compare"><i class="ion-ios-settings-strong"></i></a></li>
-                                                <li class="quick_button"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-bs-toggle="modal" data-bs-target="#modal_box" data-tippy="quick view"><i class="ion-ios-search-strong"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Donec tempus pretium arcu et faucibus commodo</a></h4>
-                                            <div class="price_box">
-                                                <span class="old_price">$82.00</span>
-                                                <span class="current_price">$75.00</span>
-                                            </div>
-                                        </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
-                                        </div>
-
-                                    </div>
-                                </figure>
-                            </article>
-                            <article class="single_product">
-                                <figure>
-
-                                    <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product8.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
-                                        <div class="label_product">
-                                            <span class="label_sale">Sale</span>
-                                        </div>
-                                        <div class="action_links">
-                                            <ul>
-                                                <li class="wishlist"><a href="wishlist.html" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true" data-tippy="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
-                                                <li class="compare"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-tippy="Add to Compare"><i class="ion-ios-settings-strong"></i></a></li>
-                                                <li class="quick_button"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-bs-toggle="modal" data-bs-target="#modal_box" data-tippy="quick view"><i class="ion-ios-search-strong"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
-                                            <div class="price_box">
-                                                <span class="old_price">$72.00</span>
-                                                <span class="current_price">$70.00</span>
-                                            </div>
-                                        </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
-                                        </div>
-
-                                    </div>
-                                </figure>
-                            </article>
-                            <article class="single_product">
-                                <figure>
-
-                                    <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product6.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product7.jpg') }}" alt=""></a>
-                                        <div class="label_product">
-                                            <span class="label_sale">Sale</span>
-                                        </div>
-                                        <div class="action_links">
-                                            <ul>
-                                                <li class="wishlist"><a href="wishlist.html" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true" data-tippy="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
-                                                <li class="compare"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-tippy="Add to Compare"><i class="ion-ios-settings-strong"></i></a></li>
-                                                <li class="quick_button"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-bs-toggle="modal" data-bs-target="#modal_box" data-tippy="quick view"><i class="ion-ios-search-strong"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product_content">
-                                        <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
-                                            <div class="price_box">
-                                                <span class="old_price">$65.00</span>
-                                                <span class="current_price">$60.00</span>
-                                            </div>
-                                        </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
-                                        </div>
-
-                                    </div>
-                                </figure>
-                            </article>
+                                    </figure>
+                                </article>
+                            @endif
+                            @endforeach
+                            @endforeach
                         </div>
                     </div>
                     <div class="tab-pane fade" id="Networking2" role="tabpanel">
@@ -1423,8 +910,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product3.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product3.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -1438,14 +925,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Natus erro at congue massa commodo sit Natus erro</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Natus erro at congue massa commodo sit Natus erro</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$80.00</span>
                                                 <span class="current_price">$70.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -1455,8 +942,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product7.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product8.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product7.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product8.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -1470,14 +957,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$76.00</span>
                                                 <span class="current_price">$75.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -1487,8 +974,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product10.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product10.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -1502,14 +989,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$72.00</span>
                                                 <span class="current_price">$70.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -1519,8 +1006,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product11.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product12.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product11.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product12.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -1534,14 +1021,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$65.00</span>
                                                 <span class="current_price">$60.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -1551,8 +1038,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -1566,14 +1053,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$86.00</span>
                                                 <span class="current_price">$79.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -1583,8 +1070,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product3.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product4.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product3.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product4.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -1598,14 +1085,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Donec tempus pretium arcu et faucibus commodo</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Donec tempus pretium arcu et faucibus commodo</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$82.00</span>
                                                 <span class="current_price">$75.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -1619,8 +1106,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product7.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product8.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product7.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product8.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -1634,14 +1121,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$76.00</span>
                                                 <span class="current_price">$75.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -1650,8 +1137,8 @@
                             <article class="single_product">
                                 <figure>
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -1665,14 +1152,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$86.00</span>
                                                 <span class="current_price">$79.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -1682,8 +1169,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product3.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product4.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product3.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product4.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -1697,14 +1184,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Donec tempus pretium arcu et faucibus commodo</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Donec tempus pretium arcu et faucibus commodo</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$82.00</span>
                                                 <span class="current_price">$75.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -1714,8 +1201,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product5.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product6.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product5.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product6.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -1729,14 +1216,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Natus erro at congue massa commodo sit Natus erro</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Natus erro at congue massa commodo sit Natus erro</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$80.00</span>
                                                 <span class="current_price">$70.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -1746,8 +1233,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product10.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product10.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -1761,14 +1248,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$72.00</span>
                                                 <span class="current_price">$70.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -1778,8 +1265,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product11.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product12.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product11.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product12.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -1793,14 +1280,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$65.00</span>
                                                 <span class="current_price">$60.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -1814,8 +1301,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product10.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product10.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -1829,14 +1316,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$72.00</span>
                                                 <span class="current_price">$70.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -1846,8 +1333,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -1861,14 +1348,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$86.00</span>
                                                 <span class="current_price">$79.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -1878,8 +1365,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product5.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product6.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product5.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product6.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -1893,14 +1380,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Natus erro at congue massa commodo sit Natus erro</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Natus erro at congue massa commodo sit Natus erro</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$80.00</span>
                                                 <span class="current_price">$70.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -1910,8 +1397,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product7.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product8.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product7.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product8.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -1925,14 +1412,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$76.00</span>
                                                 <span class="current_price">$75.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -1941,8 +1428,8 @@
                             <article class="single_product">
                                 <figure>
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product3.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product4.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product3.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product4.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -1956,14 +1443,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Donec tempus pretium arcu et faucibus commodo</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Donec tempus pretium arcu et faucibus commodo</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$82.00</span>
                                                 <span class="current_price">$75.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -1973,8 +1460,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product11.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product12.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product11.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product12.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -1988,14 +1475,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$65.00</span>
                                                 <span class="current_price">$60.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2053,8 +1540,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product29.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product28.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product29.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product28.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2068,14 +1555,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$72.00</span>
                                                 <span class="current_price">$70.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2084,8 +1571,8 @@
                             <article class="single_product">
                                 <figure>
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product27.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product26.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product27.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product26.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2099,14 +1586,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$65.00</span>
                                                 <span class="current_price">$60.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2115,8 +1602,8 @@
                             <article class="single_product">
                                 <figure>
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product24.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product25.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product24.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product25.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2130,14 +1617,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Natus erro at congue massa commodo sit Natus erro</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Natus erro at congue massa commodo sit Natus erro</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$80.00</span>
                                                 <span class="current_price">$70.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2146,8 +1633,8 @@
                             <article class="single_product">
                                 <figure>
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product22.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product23.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product22.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product23.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2161,14 +1648,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$76.00</span>
                                                 <span class="current_price">$75.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2177,8 +1664,8 @@
                             <article class="single_product">
                                 <figure>
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product20.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product21.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product20.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product21.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2192,14 +1679,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$86.00</span>
                                                 <span class="current_price">$79.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2208,8 +1695,8 @@
                             <article class="single_product">
                                 <figure>
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product18.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product19.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product18.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product19.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2223,14 +1710,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Donec tempus pretium arcu et faucibus commodo</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Donec tempus pretium arcu et faucibus commodo</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$82.00</span>
                                                 <span class="current_price">$75.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2244,8 +1731,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product10.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product10.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2259,14 +1746,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$72.00</span>
                                                 <span class="current_price">$70.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2276,8 +1763,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product11.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product12.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product11.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product12.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2291,14 +1778,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$65.00</span>
                                                 <span class="current_price">$60.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2307,8 +1794,8 @@
                             <article class="single_product">
                                 <figure>
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product5.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product6.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product5.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product6.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2322,14 +1809,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Natus erro at congue massa commodo sit Natus erro</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Natus erro at congue massa commodo sit Natus erro</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$80.00</span>
                                                 <span class="current_price">$70.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2339,8 +1826,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product7.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product8.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product7.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product8.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2354,14 +1841,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$76.00</span>
                                                 <span class="current_price">$75.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2371,8 +1858,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2386,14 +1873,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$86.00</span>
                                                 <span class="current_price">$79.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2403,8 +1890,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product3.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product4.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product3.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product4.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2418,14 +1905,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Donec tempus pretium arcu et faucibus commodo</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Donec tempus pretium arcu et faucibus commodo</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$82.00</span>
                                                 <span class="current_price">$75.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2439,8 +1926,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product7.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product8.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product7.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product8.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2454,14 +1941,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$76.00</span>
                                                 <span class="current_price">$75.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2470,8 +1957,8 @@
                             <article class="single_product">
                                 <figure>
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2485,14 +1972,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$86.00</span>
                                                 <span class="current_price">$79.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2502,8 +1989,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product3.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product4.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product3.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product4.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2517,14 +2004,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Donec tempus pretium arcu et faucibus commodo</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Donec tempus pretium arcu et faucibus commodo</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$82.00</span>
                                                 <span class="current_price">$75.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2534,8 +2021,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product5.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product6.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product5.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product6.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2549,14 +2036,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Natus erro at congue massa commodo sit Natus erro</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Natus erro at congue massa commodo sit Natus erro</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$80.00</span>
                                                 <span class="current_price">$70.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2566,8 +2053,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product10.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product10.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2581,14 +2068,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$72.00</span>
                                                 <span class="current_price">$70.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2598,8 +2085,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product11.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product12.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product11.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product12.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2613,14 +2100,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$65.00</span>
                                                 <span class="current_price">$60.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2634,8 +2121,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product10.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product10.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2649,14 +2136,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$72.00</span>
                                                 <span class="current_price">$70.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2666,8 +2153,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2681,14 +2168,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$86.00</span>
                                                 <span class="current_price">$79.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2698,8 +2185,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product5.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product6.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product5.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product6.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2713,14 +2200,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Natus erro at congue massa commodo sit Natus erro</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Natus erro at congue massa commodo sit Natus erro</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$80.00</span>
                                                 <span class="current_price">$70.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2730,8 +2217,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product7.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product8.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product7.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product8.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2745,14 +2232,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$76.00</span>
                                                 <span class="current_price">$75.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2761,8 +2248,8 @@
                             <article class="single_product">
                                 <figure>
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product3.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product4.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product3.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product4.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2776,14 +2263,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Donec tempus pretium arcu et faucibus commodo</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Donec tempus pretium arcu et faucibus commodo</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$82.00</span>
                                                 <span class="current_price">$75.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2793,8 +2280,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product11.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product12.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product11.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product12.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2808,14 +2295,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$65.00</span>
                                                 <span class="current_price">$60.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2871,8 +2358,8 @@
                             <article class="single_product">
                                 <figure>
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product19.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product20.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product19.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product20.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2886,14 +2373,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$76.00</span>
                                                 <span class="current_price">$75.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2902,8 +2389,8 @@
                             <article class="single_product">
                                 <figure>
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product21.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product22.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product21.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product22.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2917,14 +2404,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Natus erro at congue massa commodo sit Natus erro</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Natus erro at congue massa commodo sit Natus erro</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$80.00</span>
                                                 <span class="current_price">$70.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2933,8 +2420,8 @@
                             <article class="single_product">
                                 <figure>
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product14.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product15.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product14.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product15.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2948,14 +2435,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Donec tempus pretium arcu et faucibus commodo</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Donec tempus pretium arcu et faucibus commodo</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$82.00</span>
                                                 <span class="current_price">$75.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2964,8 +2451,8 @@
                             <article class="single_product">
                                 <figure>
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product23.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product24.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product23.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product24.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -2979,14 +2466,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$72.00</span>
                                                 <span class="current_price">$70.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -2995,8 +2482,8 @@
                             <article class="single_product">
                                 <figure>
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product5.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product6.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product5.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product6.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -3010,14 +2497,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$65.00</span>
                                                 <span class="current_price">$60.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -3026,8 +2513,8 @@
                             <article class="single_product">
                                 <figure>
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -3041,14 +2528,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$86.00</span>
                                                 <span class="current_price">$79.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -3062,8 +2549,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product5.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product6.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product5.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product6.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -3077,14 +2564,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Natus erro at congue massa commodo sit Natus erro</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Natus erro at congue massa commodo sit Natus erro</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$80.00</span>
                                                 <span class="current_price">$70.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -3094,8 +2581,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product7.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product8.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product7.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product8.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -3109,14 +2596,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$76.00</span>
                                                 <span class="current_price">$75.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -3126,8 +2613,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product10.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product10.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -3141,14 +2628,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$72.00</span>
                                                 <span class="current_price">$70.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -3158,8 +2645,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product11.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product12.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product11.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product12.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -3173,14 +2660,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$65.00</span>
                                                 <span class="current_price">$60.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -3190,8 +2677,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -3205,14 +2692,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$86.00</span>
                                                 <span class="current_price">$79.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -3222,8 +2709,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product3.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product4.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product3.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product4.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -3237,14 +2724,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Donec tempus pretium arcu et faucibus commodo</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Donec tempus pretium arcu et faucibus commodo</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$82.00</span>
                                                 <span class="current_price">$75.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -3258,8 +2745,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product7.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product8.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product7.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product8.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -3273,14 +2760,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$76.00</span>
                                                 <span class="current_price">$75.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -3289,8 +2776,8 @@
                             <article class="single_product">
                                 <figure>
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -3304,14 +2791,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$86.00</span>
                                                 <span class="current_price">$79.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -3321,8 +2808,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product3.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product4.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product3.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product4.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -3336,14 +2823,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Donec tempus pretium arcu et faucibus commodo</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Donec tempus pretium arcu et faucibus commodo</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$82.00</span>
                                                 <span class="current_price">$75.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -3353,8 +2840,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product5.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product6.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product5.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product6.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -3368,14 +2855,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Natus erro at congue massa commodo sit Natus erro</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Natus erro at congue massa commodo sit Natus erro</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$80.00</span>
                                                 <span class="current_price">$70.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -3385,8 +2872,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product10.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product10.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -3400,14 +2887,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$72.00</span>
                                                 <span class="current_price">$70.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -3417,8 +2904,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product11.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product12.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product11.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product12.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -3432,14 +2919,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$65.00</span>
                                                 <span class="current_price">$60.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -3453,8 +2940,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product10.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product10.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -3468,14 +2955,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$72.00</span>
                                                 <span class="current_price">$70.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -3485,8 +2972,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product2.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -3500,14 +2987,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$86.00</span>
                                                 <span class="current_price">$79.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -3517,8 +3004,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product5.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product6.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product5.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product6.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -3532,14 +3019,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Natus erro at congue massa commodo sit Natus erro</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Natus erro at congue massa commodo sit Natus erro</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$80.00</span>
                                                 <span class="current_price">$70.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -3549,8 +3036,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product7.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product8.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product7.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product8.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -3564,14 +3051,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Nullam maximus eget nisi dignissim sodales eget tempor</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$76.00</span>
                                                 <span class="current_price">$75.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -3580,8 +3067,8 @@
                             <article class="single_product">
                                 <figure>
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product3.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product4.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product3.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product4.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -3595,14 +3082,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Donec tempus pretium arcu et faucibus commodo</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Donec tempus pretium arcu et faucibus commodo</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$82.00</span>
                                                 <span class="current_price">$75.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -3612,8 +3099,8 @@
                                 <figure>
 
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product11.jpg') }}" alt=""></a>
-                                        <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product12.jpg') }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product11.jpg') }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/product12.jpg') }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>
@@ -3627,14 +3114,14 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_content_inner">
-                                            <h4 class="product_name"><a href="product-details.html">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
+                                            <h4 class="product_name"><a href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}">Mirum est notare tellus eu nibh iaculis pretium</a></h4>
                                             <div class="price_box">
                                                 <span class="old_price">$65.00</span>
                                                 <span class="current_price">$60.00</span>
                                             </div>
                                         </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <div class="add_to_cart" name="add_to_cart">
+                                            <button title="Add to cart">Add to cart</button>
                                         </div>
 
                                     </div>
@@ -3839,7 +3326,7 @@
                             <div class="footer_menu">
                                 <ul>
                                     <li><a href="my-account.html">My Account</a></li>
-                                    <li><a href="cart.html">Shopping Cart</a></li>
+                                    <li><a href="#">Shopping Cart</a></li>
                                     <li><a href="wishlist.html">Wish List</a></li>
                                     <li><a href="#">Prices drop</a></li>
                                     <li><a href="#">Order History</a></li>

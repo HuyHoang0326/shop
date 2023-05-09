@@ -85,7 +85,8 @@
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <form action="{{ url('/login') }}" method="post">
+        <form action="" method="post">
+            @csrf
             <div class="form-group has-feedback">
                 <input style="padding-left: 10px;" type="text" name="email" class="form-control" placeholder="Username or Email">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>

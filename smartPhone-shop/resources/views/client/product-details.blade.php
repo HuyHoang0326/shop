@@ -1,3 +1,5 @@
+@extends('client.layout')
+@section('content')
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -37,46 +39,46 @@
                     <div class="row">
                         <div class="col-lg-5 col-md-6">
                             <div class="product-details-tab">
-                                <div id="img-1" class="zoomWrapper single-zoom">
-                                    <a href="#">
-                                        <img id="zoom1" src="assets/img/product/productbig5.jpg" data-zoom-image="assets/img/product/productbig5.jpg" alt="big-1">
-                                    </a>
-                                </div>
-                                <div class="single-zoom-thumb">
-                                    <ul class="s-tab-zoom owl-carousel single-product-active" id="gallery_01">
-                                        <li>
-                                            <a href="#" class="elevatezoom-gallery active" data-update="" data-image="assets/img/product/productbig4.jpg" data-zoom-image="assets/img/product/productbig4.jpg">
-                                                <img src="assets/img/product/productbig4.jpg" alt="zo-th-1" />
-                                            </a>
+                                    <div id="img-1" class="zoomWrapper single-zoom">
+                                        <a href="#">
+                                            <img id="zoom1" name="primary_img" src="{{ asset('img/product/'.$objItem->image) }}" data-zoom-image="{{ asset('img/product/'.$objItem->image) }}" alt="big-1">
+                                        </a>
+                                    </div>
+                                    <div class="single-zoom-thumb">
+                                        <ul class="s-tab-zoom owl-carousel single-product-active" id="gallery_01">
+                                            <li>
+                                                <a href="#" class="elevatezoom-gallery active" data-update="" data-image="{{ asset('img/product/productbig4.jpg') }}" data-zoom-image="{{ asset('img/product/productbig4.jpg') }}">
+                                                    <img src="{{ asset('img/product/'.$objItem->image) }}" alt="zo-th-1" />
+                                                </a>
 
-                                        </li>
-                                        <li>
-                                            <a href="#" class="elevatezoom-gallery active" data-update="" data-image="assets/img/product/productbig1.jpg" data-zoom-image="assets/img/product/productbig1.jpg">
-                                                <img src="assets/img/product/productbig1.jpg" alt="zo-th-1" />
-                                            </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="elevatezoom-gallery active" data-update="" data-image="{{ asset('img/product/productbig1.jpg') }}" data-zoom-image="{{ asset('img/product/productbig1.jpg') }}">
+                                                    <img src="{{ asset('img/product/'.$objItem->image) }}" alt="zo-th-1" />
+                                                </a>
 
-                                        </li>
-                                        <li>
-                                            <a href="#" class="elevatezoom-gallery active" data-update="" data-image="assets/img/product/productbig2.jpg" data-zoom-image="assets/img/product/productbig2.jpg">
-                                                <img src="assets/img/product/productbig2.jpg" alt="zo-th-1" />
-                                            </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="elevatezoom-gallery active" data-update="" data-image="{{ asset('img/product/productbig2.jpg') }}" data-zoom-image="{{ asset('img/product/productbig2.jpg') }}">
+                                                    <img src="{{ asset('img/product/'.$objItem->image) }}" alt="zo-th-1" />
+                                                </a>
 
-                                        </li>
-                                        <li>
-                                            <a href="#" class="elevatezoom-gallery active" data-update="" data-image="assets/img/product/productbig3.jpg" data-zoom-image="assets/img/product/productbig3.jpg">
-                                                <img src="assets/img/product/productbig3.jpg" alt="zo-th-1" />
-                                            </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="elevatezoom-gallery active" data-update="" data-image="{{ asset('img/product/productbig3.jpg') }}" data-zoom-image="{{ asset('img/product/productbig3.jpg') }}">
+                                                    <img src="{{ asset('img/product/'.$objItem->image) }}" alt="zo-th-1" />
+                                                </a>
 
-                                        </li>
-                                    </ul>
-                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
                             </div>
                         </div>
                         <div class="col-lg-7 col-md-6">
                             <div class="product_d_right">
                                 <form action="#">
 
-                                    <h3><a href="#">Nonstick Dishwasher PFOA</a></h3>
+                                    <h3><a href="#" name="product_name">{{ $objItem->name }}</a></h3>
                                     <div class="product_nav">
                                         <ul>
                                             <li class="prev"><a href="product-details.html"><i class="fa fa-angle-left"></i></a></li>
@@ -94,8 +96,14 @@
                                         </ul>
                                     </div>
                                     <div class="price_box">
-                                        <span class="old_price">$80.00</span>
-                                        <span class="current_price">$70.00</span>
+                                        <span class="old_price" name="old_price">${{ $objItem->price }}</span>
+                                        <span class="id_product" >{{ $objItem->id }}</span>
+                                        <span class="current_price" name = "current_price"> @foreach($sale as $saleItem)
+                                            @if($saleItem->id_product == $objItem->id)
+                                            <p class="sale_product" hidden>{{ $saleItem->id_sale }}</p>
+                                               ${{$objItem->price *( $saleItem->price / 100) }}
+                                            @endif
+                                        @endforeach</span>
                                     </div>
                                     <div class="product_desc">
                                         <p>eget velit. Donec ac tempus ante. Fusce ultricies massa massa. Fusce aliquam, purus eget sagittis vulputate, sapien libero hendrerit est, sed commodo augue nisi non neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, lorem et placerat vestibulum, metus nisi posuere nisl, in </p>
@@ -112,8 +120,8 @@
                                     </div>
                                     <div class="product_variant quantity">
                                         <label>quantity</label>
-                                        <input min="1" max="100" value="1" type="number">
-                                        <button class="button" type="submit">add to cart</button>
+                                        <input min="1" max="100" value="1" type="number" name = 'product_quantity'>
+                                        <button name="add_to_cart_detail" class="button" type="submit"  onclick="add_product_to_cart()">add to cart</button>
 
                                     </div>
                                     <div class=" product_d_action">
@@ -199,7 +207,7 @@
                                             <h2>1 review for Donec eu furniture</h2>
                                             <div class="reviews_comment_box">
                                                 <div class="comment_thmb">
-                                                    <img src="assets/img/blog/comment2.jpg" alt="">
+                                                    <img src="{{ asset('img/blog/comment2.jpg') }}" alt="">
                                                 </div>
                                                 <div class="comment_text">
                                                     <div class="reviews_meta">
@@ -276,8 +284,8 @@
                         <figure>
 
                             <div class="product_thumb">
-                                <a class="primary_img" href="product-details.html"><img src="assets/img/product/product14.jpg" alt=""></a>
-                                <a class="secondary_img" href="product-details.html"><img src="assets/img/product/product13.jpg" alt=""></a>
+                                <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product14.jpg') }}" alt=""></a>
+                                <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product13.jpg') }}" alt=""></a>
                                 <div class="label_product">
                                     <span class="label_sale">Sale</span>
                                 </div>
@@ -308,8 +316,8 @@
                         <figure>
 
                             <div class="product_thumb">
-                                <a class="primary_img" href="product-details.html"><img src="assets/img/product/product17.jpg" alt=""></a>
-                                <a class="secondary_img" href="product-details.html"><img src="assets/img/product/product18.jpg" alt=""></a>
+                                <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product17.jpg') }}" alt=""></a>
+                                <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product18.jpg') }}" alt=""></a>
                                 <div class="label_product">
                                     <span class="label_sale">Sale</span>
                                 </div>
@@ -340,8 +348,8 @@
                         <figure>
 
                             <div class="product_thumb">
-                                <a class="primary_img" href="product-details.html"><img src="assets/img/product/product19.jpg" alt=""></a>
-                                <a class="secondary_img" href="product-details.html"><img src="assets/img/product/product20.jpg" alt=""></a>
+                                <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product19.jpg') }}" alt=""></a>
+                                <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product20.jpg') }}" alt=""></a>
                                 <div class="label_product">
                                     <span class="label_sale">Sale</span>
                                 </div>
@@ -372,8 +380,8 @@
                         <figure>
 
                             <div class="product_thumb">
-                                <a class="primary_img" href="product-details.html"><img src="assets/img/product/product22.jpg" alt=""></a>
-                                <a class="secondary_img" href="product-details.html"><img src="assets/img/product/product23.jpg" alt=""></a>
+                                <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product22.jpg') }}" alt=""></a>
+                                <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product23.jpg') }}" alt=""></a>
                                 <div class="label_product">
                                     <span class="label_sale">Sale</span>
                                 </div>
@@ -404,8 +412,8 @@
                         <figure>
 
                             <div class="product_thumb">
-                                <a class="primary_img" href="product-details.html"><img src="assets/img/product/product24.jpg" alt=""></a>
-                                <a class="secondary_img" href="product-details.html"><img src="assets/img/product/product25.jpg" alt=""></a>
+                                <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product24.jpg') }}" alt=""></a>
+                                <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product25.jpg') }}" alt=""></a>
                                 <div class="label_product">
                                     <span class="label_sale">Sale</span>
                                 </div>
@@ -436,8 +444,8 @@
                         <figure>
 
                             <div class="product_thumb">
-                                <a class="primary_img" href="product-details.html"><img src="assets/img/product/product26.jpg" alt=""></a>
-                                <a class="secondary_img" href="product-details.html"><img src="assets/img/product/product27.jpg" alt=""></a>
+                                <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product26.jpg') }}" alt=""></a>
+                                <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product27.jpg') }}" alt=""></a>
                                 <div class="label_product">
                                     <span class="label_sale">Sale</span>
                                 </div>
@@ -483,8 +491,8 @@
                         <figure>
 
                             <div class="product_thumb">
-                                <a class="primary_img" href="product-details.html"><img src="assets/img/product/product28.jpg" alt=""></a>
-                                <a class="secondary_img" href="product-details.html"><img src="assets/img/product/product29.jpg" alt=""></a>
+                                <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product28.jpg') }}" alt=""></a>
+                                <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product29.jpg') }}" alt=""></a>
                                 <div class="label_product">
                                     <span class="label_sale">Sale</span>
                                 </div>
@@ -515,8 +523,8 @@
                         <figure>
 
                             <div class="product_thumb">
-                                <a class="primary_img" href="product-details.html"><img src="assets/img/product/product7.jpg" alt=""></a>
-                                <a class="secondary_img" href="product-details.html"><img src="assets/img/product/product8.jpg" alt=""></a>
+                                <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product7.jpg') }}" alt=""></a>
+                                <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product8.jpg') }}" alt=""></a>
                                 <div class="label_product">
                                     <span class="label_sale">Sale</span>
                                 </div>
@@ -547,8 +555,8 @@
                         <figure>
 
                             <div class="product_thumb">
-                                <a class="primary_img" href="product-details.html"><img src="assets/img/product/product9.jpg" alt=""></a>
-                                <a class="secondary_img" href="product-details.html"><img src="assets/img/product/product10.jpg" alt=""></a>
+                                <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
+                                <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product10.jpg') }}" alt=""></a>
                                 <div class="label_product">
                                     <span class="label_sale">Sale</span>
                                 </div>
@@ -579,8 +587,8 @@
                         <figure>
 
                             <div class="product_thumb">
-                                <a class="primary_img" href="product-details.html"><img src="assets/img/product/product11.jpg" alt=""></a>
-                                <a class="secondary_img" href="product-details.html"><img src="assets/img/product/product12.jpg" alt=""></a>
+                                <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product11.jpg') }}" alt=""></a>
+                                <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product12.jpg') }}" alt=""></a>
                                 <div class="label_product">
                                     <span class="label_sale">Sale</span>
                                 </div>
@@ -611,8 +619,8 @@
                         <figure>
 
                             <div class="product_thumb">
-                                <a class="primary_img" href="product-details.html"><img src="assets/img/product/product13.jpg" alt=""></a>
-                                <a class="secondary_img" href="product-details.html"><img src="assets/img/product/product4.jpg" alt=""></a>
+                                <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product13.jpg') }}" alt=""></a>
+                                <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product4.jpg') }}" alt=""></a>
                                 <div class="label_product">
                                     <span class="label_sale">Sale</span>
                                 </div>
@@ -643,8 +651,8 @@
                         <figure>
 
                             <div class="product_thumb">
-                                <a class="primary_img" href="product-details.html"><img src="assets/img/product/product15.jpg" alt=""></a>
-                                <a class="secondary_img" href="product-details.html"><img src="assets/img/product/product16.jpg" alt=""></a>
+                                <a class="primary_img" href="product-details.html"><img src="{{ asset('img/product/product15.jpg') }}" alt=""></a>
+                                <a class="secondary_img" href="product-details.html"><img src="{{ asset('img/product/product16.jpg') }}" alt=""></a>
                                 <div class="label_product">
                                     <span class="label_sale">Sale</span>
                                 </div>
@@ -725,10 +733,10 @@
                             </div>
                             <div class="app_img">
                                 <figure class="app_img">
-                                    <a href="#"><img src="assets/img/icon/icon-appstore.png" alt=""></a>
+                                    <a href="#"><img src="{{ asset('img/icon/icon-appstore.png') }}" alt=""></a>
                                 </figure>
                                 <figure class="app_img">
-                                    <a href="#"><img src="assets/img/icon/icon-googleplay.png" alt=""></a>
+                                    <a href="#"><img src="{{ asset('img/icon/icon-googleplay.png') }}" alt=""></a>
                                 </figure>
                             </div>
                         </div>
@@ -784,7 +792,7 @@
                             <div class="footer_contact">
                                 <div class="footer_contact_inner">
                                     <div class="contact_icone">
-                                        <img src="assets/img/icon/icon-phone.png" alt="">
+                                        <img src="{{ asset('img/icon/icon-phone.png') }}" alt="">
                                     </div>
                                     <div class="contact_text">
                                         <p>Hotline Free 24/24: <br> <strong>0123456789</strong></p>
@@ -817,7 +825,7 @@
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="footer_payment text-right">
-                            <img src="assets/img/icon/payment.png" alt="">
+                            <img src="{{ asset('img/icon/payment.png') }}" alt="">
                         </div>
                     </div>
                 </div>
@@ -841,38 +849,38 @@
                                     <div class="tab-content product-details-large">
                                         <div class="tab-pane fade show active" id="tab1" role="tabpanel">
                                             <div class="modal_tab_img">
-                                                <a href="#"><img src="assets/img/product/productbig2.jpg" alt=""></a>
+                                                <a href="#"><img src="{{ asset('img/product/productbig2.jpg') }}" alt=""></a>
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="tab2" role="tabpanel">
                                             <div class="modal_tab_img">
-                                                <a href="#"><img src="assets/img/product/productbig3.jpg" alt=""></a>
+                                                <a href="#"><img src="{{ asset('img/product/productbig3.jpg') }}" alt=""></a>
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="tab3" role="tabpanel">
                                             <div class="modal_tab_img">
-                                                <a href="#"><img src="assets/img/product/productbig4.jpg" alt=""></a>
+                                                <a href="#"><img src="{{ asset('img/product/productbig4.jpg') }}" alt=""></a>
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="tab4" role="tabpanel">
                                             <div class="modal_tab_img">
-                                                <a href="#"><img src="assets/img/product/productbig5.jpg" alt=""></a>
+                                                <a href="#"><img src="{{ asset('img/product/productbig5.jpg') }}" alt=""></a>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="modal_tab_button">
                                         <ul class="nav product_navactive owl-carousel" role="tablist">
                                             <li>
-                                                <a class="nav-link active" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="false"><img src="assets/img/product/product1.jpg" alt=""></a>
+                                                <a class="nav-link active" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="false"><img src="{{ asset('img/product/product1.jpg') }}" alt=""></a>
                                             </li>
                                             <li>
-                                                <a class="nav-link" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false"><img src="assets/img/product/product6.jpg" alt=""></a>
+                                                <a class="nav-link" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false"><img src="{{ asset('img/product/product6.jpg') }}" alt=""></a>
                                             </li>
                                             <li>
-                                                <a class="nav-link button_three" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false"><img src="assets/img/product/product9.jpg" alt=""></a>
+                                                <a class="nav-link button_three" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false"><img src="{{ asset('img/product/product9.jpg') }}" alt=""></a>
                                             </li>
                                             <li>
-                                                <a class="nav-link" data-toggle="tab" href="#tab4" role="tab" aria-controls="tab4" aria-selected="false"><img src="assets/img/product/product14.jpg" alt=""></a>
+                                                <a class="nav-link" data-toggle="tab" href="#tab4" role="tab" aria-controls="tab4" aria-selected="false"><img src="{{ asset('img/product/product14.jpg') }}" alt=""></a>
                                             </li>
 
                                         </ul>
@@ -944,10 +952,9 @@
 ============================================ -->
 
     <!-- Plugins JS -->
-    <script src="assets/js/plugins.js"></script>
+    <script src="{{asset('js/product_detail.js')}}"></script>
 
     <!-- Main JS -->
-    <script src="assets/js/main.js"></script>
 
 
 
@@ -956,3 +963,4 @@
 
 <!-- Mirrored from htmldemo.net/antomi/antomi/product-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 21 Nov 2022 06:48:23 GMT -->
 </html>
+@endsection

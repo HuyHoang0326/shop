@@ -6,7 +6,6 @@ use App\Http\Requests\TestRequest;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 
@@ -21,19 +20,26 @@ class Product extends Model
         'category',
         'price',
         'quantity',
-        'status',
-        'description'
+        'sale',
+        'description',
+        'image'
     ];
 
-    public function loadList($param = []){
+    public function loadListProduct($param = []){
         $query = DB::table('product')->select($this->fillable)->get();
+        foreach($query as $product){
+            $saleArr = [];
+            foreach($this->product_sale($product->id) as $sale){
+                array_push($saleArr,$sale->id_sale);
+                $saleArr = array_unique($saleArr);
+            }
+            $product->sale = implode(",",$saleArr);;
+        }
         return $query;
     }
     public function saveNew($param){
-        $data = array_merge($param["cols"],[
-            'password' => Hash::make($param['cols']['password'])
-            
-        ]);
+        unset($param['cols']['_token']); 
+        $data = array_merge($param["cols"]);
         $res = DB::table($this->table)->insertGetId($data);
         return $res;
     }
@@ -56,4 +62,15 @@ class Product extends Model
         $res = DB::table($this->table)->where('id',$params['cols']['id'])->update($dataUpdate);
         return $res;
     }
+
+    public function product_category_list ($id){
+        $query = DB::table('product')->where('category',$id)->get();
+        return $query;
+    }
+
+    public function product_sale($product){
+        $query = DB::table('sale')->select('id_sale')->where('id_product',$product)->get();
+        return $query;
+    }
 }
+?>

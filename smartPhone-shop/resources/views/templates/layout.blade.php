@@ -189,31 +189,52 @@
                 </div>
                 <div class="pull-left info">
                     <p> {{ $objUser->name }} </p>
-
                 </div>
                 <div class="clearfix">
                     <p class="text-info">{{ $objUser->email }}</p>
+                </div>
+                <div> 
+                    <button type="button" class="btn btn-danger"><a href="{{ route('route_BackEnd_LogOut') }}">Đăng xuất</a></button>
                 </div>
 
             </div>
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
                 <li class=" active menu-open ">
-                    <a href="#"><i class="fa fa-user"></i> <span>Người dùng</span></a>
+                    <a href="#"><i class="fa fa-user"></i> <span>Quản lí </span></a>
                     <ul class="treeview-menu">
                         <li>
-                            <a href="{{ route('route_Backend_userList') }}"><i class="fa fa-circle-o"></i>Danh sách Người Dùng</a>
+                            <a href="{{ route('route_Backend_userList') }}"><i class="fa fa-circle-o"></i>Danh Sách Người Dùng</a>
                         </li>
                     </ul>
-                </li>
-            </ul>
-            
-            <ul class="sidebar-menu" data-widget="tree">
-                <li class=" active menu-open ">
-                    <a href="#"><i class="fa fa-user"></i> <span>Sản Phẩm</span></a>
                     <ul class="treeview-menu">
                         <li>
-                            <a href=""><i class="fa fa-circle-o"></i>Sản Phẩm</a>
+                            <a href="{{ route('route_BackEnd_productList') }}"><i class="fa fa-circle-o"></i>Danh Sách Sản Phẩm</a>
+                        </li>
+                    </ul>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="{{ route('route_BackEnd_categoryList') }}"><i class="fa fa-circle-o"></i>Danh Sách Loại Hàng</a>
+                        </li>
+                    </ul>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="{{ route('route_BackEnd_Order_Origin_List') }}"><i class="fa fa-circle-o"></i>Yêu Cầu Sản Phẩm</a>
+                        </li>
+                    </ul>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="{{ route('route_BackEnd_OrderList') }}"><i class="fa fa-circle-o"></i>Chi Tiết Yêu Cầu Sản Phẩm</a>
+                        </li>
+                    </ul>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="{{ route('route_BackEnd_saleList') }}"><i class="fa fa-circle-o"></i>Chi Tiết Giảm Giá</a>
+                        </li>
+                    </ul>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="{{ route('route_BackEnd_Sale_Origin_List') }}"><i class="fa fa-circle-o"></i>Danh Sách Giảm Giá</a>
                         </li>
                     </ul>
                 </li>
