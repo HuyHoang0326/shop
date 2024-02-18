@@ -10,9 +10,9 @@ class Sale_origin extends Model
 {
     use HasFactory;
 
-    protected $table = 'Sale_origin';
+    protected $table = 'sale_origin';
 
-    protected $fields = [
+    protected $fillable = [
         'id',
         'price',	
         'description',
@@ -23,7 +23,7 @@ class Sale_origin extends Model
     ];
 
     public function loadList($param=[]){
-        $query = DB::table($this->table)->select($this->fields)->get();
+        $query = DB::table($this->table)->select($this->fillable)->get();
         return $query;
     }
 
@@ -49,6 +49,33 @@ class Sale_origin extends Model
             $dataUpdate[$colName] = (strlen($val) == 0)? null:$val;
         }
         $res = DB::table($this->table)->where('id',$params['cols']['id'])->update($dataUpdate);
+        return $res;
+    }
+
+    public function updateStatus($id,$status){
+        $order = Sale_origin::findOrFail($id);
+        $order->status = $status;
+        $res = $order->save();
+        return $res;
+    }
+
+    public function syncChangesSale($id)
+    {
+        $res = DB::table($this->table)
+        ->where('id',$id)
+        ->update([
+            'status' => DB::raw("
+                CASE
+                    WHEN EXISTS (
+                        SELECT 1
+                        FROM `sale`
+                        WHERE sale.id_sale = sale_origin.id
+                        AND sale.status = 'on'
+                    )THEN 'on'
+                    ELSE 'off'
+                    END
+            ")
+        ]);
         return $res;
     }
 }

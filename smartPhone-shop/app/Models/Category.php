@@ -14,14 +14,14 @@ class Category extends Model
     use HasFactory;
     protected $table = 'category';
 
-    protected $fields = [
+    protected $fillable = [
         'id',
         'name',
         'quantity'
     ];
 
     public function loadList($param=[]){
-        $query = DB::table($this->table)->select($this->fields)->get();
+        $query = DB::table($this->table)->select($this->fillable)->get();
         return $query;
     }
 
@@ -51,11 +51,15 @@ class Category extends Model
     }
 
     public function count_product(){
-        $queryProduct = DB::table('Product')
+        $queryProduct = DB::table('product')
                         ->select('category as id',DB::raw('COUNT(id) as quantity'))
                         ->groupBy('category')
                         ->get();
         return $queryProduct;
+    }
+  public function category_at_time($id){
+        $res = DB::table('product')->where('category',$id)->get();
+        return $res;
     }
 }
 ?>

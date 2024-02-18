@@ -34,9 +34,8 @@ class OrderRequest extends FormRequest
                         $rules = [
                             'id_order_origin'=>'required|exists:Order_origin,id',
                             'id_product'=>'required|exists:Product,id',
-                            'id_user'=>'required|exists:User,id',	
+                            'id_user'=>'required|exists:users,id',	
                             'quatity'=>'required',
-                            'sale'=>'required|exists:Order_origin,id',	
                             'price'=>'required',
                             'status'=>'required'	
                         ];
@@ -44,9 +43,8 @@ class OrderRequest extends FormRequest
                     case 'update' :
                         $rules = [
                             'id_product'=>'required|exists:Product,id',
-                            'id_user'=>'required|exists:User,id',	
+                            'id_user'=>'required|exists:users,id',	
                             'quatity'=>'required',
-                            'sale'=>'required|exists:Order_origin,id',	
                             'price'=>'required',
                             'status'=>'required'	
                         ];

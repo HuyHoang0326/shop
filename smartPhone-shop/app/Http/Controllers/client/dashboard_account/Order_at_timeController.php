@@ -11,8 +11,12 @@ use Illuminate\Http\Request;
 class Order_at_timeController extends Controller
 {
     private $v;
+    protected $page;
+    protected $fillable;
     function __construct(){
         $this->v = [];
+        $this->v['page'] = $this->page;
+        $this->v['fillable'] = $this->fillable;
     }
     function index(Request $request,$id){
         $objOder = new Order_origin();

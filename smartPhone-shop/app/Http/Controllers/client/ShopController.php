@@ -12,7 +12,7 @@ class ShopController extends Controller
 {
     private $v;
     protected $page = 'home';
-    protected $fields = [
+    protected $fillable = [
         'id',
         'name',
         'category',
@@ -25,12 +25,14 @@ class ShopController extends Controller
 
     function __construct(){
         $this->v = [];
+        $this->v['page'] = $this->page;
+        $this->v['fillable'] = $this->fillable;
     }
     public function index (Request $request){
         $test = new Product();
         $this->v['param'] = $request->all();
         $this->v['list']['item'] = $test->loadListProduct($this->v['param']);
-        $this->v['list']['fields'] = $this->fields;
+        $this->v['list']['fields'] = $this->fillable;
         $objCategory = new Category();
         $this->v['category'] = $objCategory->loadList();
         $objsale = new Sale();

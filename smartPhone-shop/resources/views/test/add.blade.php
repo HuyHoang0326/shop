@@ -75,7 +75,7 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-6">
-                        @foreach ($fields as $item)
+                        @foreach ($fillable as $item)
                             @if($item != 'id')
                                 <div class="form-group">
                                     <label for="ten_de_thi" class="col-md-3 col-sm-4 control-label"> {{ $item }} <span class="text-danger">(*)</span></label>
@@ -92,6 +92,13 @@
                                             </option>
                                         }
                                         @endforeach
+                                    </select>
+                                    @elseif ($page == 'User' && $item == 'permissions')
+                                    <select name="permissions" id="">
+                                        <option value="customer"
+                                        value= 'customer' >customer</option>
+                                        <option value="admin"
+                                        value= 'admin'>admin</option>
                                     </select>
                                     @elseif($page == 'Product' && $item == 'image')
                                         <input type="file" name="image" id="image" >

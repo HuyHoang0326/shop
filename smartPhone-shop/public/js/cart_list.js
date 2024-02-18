@@ -14,6 +14,7 @@ if (localStorage.getItem('cart')) {
             <td class="product_quantity"><label>Quantity</label><input name='quantity[]' id='product_quantity_${index}' min="1" max="100" value="${item.quantity}" type="number" onchange="product_total('${item.price}','product_quantity_${index}','product_total_${index}')"></td>
             <td class="product_total" id='product_total_${index}'>$${(Number(item.price.slice(1)) * Number(item.quantity))}</td>
             <td class="product_sale" hidden><input type="text" name="sale[]" value="${item.sale_id}" hidden>${item.sale_id}</td>
+            <td class="product_sale" hidden><input type="text" name="name[]" value="${item.name}" hidden>${item.name}</td>
         `
         var element = document.createElement('tr');
         element.setAttribute('name', 'product_item_' + index)
@@ -68,9 +69,9 @@ if (localStorage.getItem('cart')) {
                             "price": item.price,
                             "price_origin": item.price_origin,
                             'sale_id': item.sale_id,
-                            'id_product':id_product,
+                            'id_product':item.id_product,
                             'quantity': product_field_quantity,
-                            "img": item.image
+                            "img": item.img
                         }
                     ;
                 arrStorage[index] = data_push;

@@ -1,6 +1,26 @@
 @extends('client.layout')
 @section('content')
 <body>
+     @if ( Session::has('error') )
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <strong>{{ Session::get('error') }}</strong>
+            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+                <span class="sr-only">Close</span>
+            </button>
+        </div>
+    @endif
+    @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+                <span class="sr-only">Close</span>
+            </button>
+        </div>
+    @endif
     <div class="breadcrumbs_area">
         <div class="container">
             <div class="row">
@@ -54,17 +74,23 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="account_form register">
                             <h2>Register</h2>
-                            <form action="#">
+                            <form action="{{ route('route_Frontend_User_Add') }}" method="POST">
+                                <p>
+                                    <label>Name <span>*</span></label>
+                                    <input type="text" name="name">
+                                </p>
                                 <p>
                                     <label>Email address <span>*</span></label>
-                                    <input type="text">
+                                    <input type="email" name="email">
                                 </p>
                                 <p>
                                     <label>Passwords <span>*</span></label>
-                                    <input type="password">
+                                    <input type="password" name="password">
                                 </p>
                                 <div class="login_submit">
                                     <button type="submit">Register</button>
+                                    <input type="hidden" name="_token" value="{!! csrf_token() !!}">
+                                    <input type="hidden" name="permissions" value="client">
                                 </div>
                             </form>
                         </div>
@@ -231,7 +257,7 @@
 
 </body>
 
-
+<script src="{{asset('js/hidden_alert.js')}}"></script>
 <!-- Mirrored from htmldemo.net/antomi/antomi/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 21 Nov 2022 06:48:30 GMT -->
 </html>
 @endsection

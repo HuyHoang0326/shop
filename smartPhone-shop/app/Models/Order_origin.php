@@ -7,24 +7,25 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use SebastianBergmann\Type\ObjectType;
 
 class Order_origin extends Model
 {
     use HasFactory;
 
-    protected $table = 'Order_origin';
+    protected $table = 'order_origin';
 
-    protected $fields = [
+    protected $fillable = [
         'id',
         'id_user',
         'status',
+        'total',
         'created_at',	
         'updated_at'
-
     ];
 
     public function loadList($param=[]){
-        $query = DB::table($this->table)->select($this->fields)->get();
+        $query = DB::table($this->table)->select($this->fillable)->get();
         return $query;
     }
 
@@ -48,8 +49,6 @@ class Order_origin extends Model
     }
     
     public function saveUpdate($params){
-        if (empty($params['cols']['id'])){
-        }
         $dataUpdate = [];
         foreach($params['cols'] as $colName =>$val){
             if($colName == 'id') continue;
@@ -68,4 +67,88 @@ class Order_origin extends Model
         $res = DB::table('order_origin')->where('id_user',$id)->get();
         return $res;
     }
+
+    public function syncOrder($idOrderOrigin){
+        $res = DB::table('order_origin')
+        ->where('id', $idOrderOrigin)
+        ->update([
+            'status' => DB::raw("
+                CASE 
+                    WHEN EXISTS (
+                        SELECT 1
+                        FROM `order`
+                        WHERE order.id_order_origin = order_origin.id
+                        AND order.status = 'processing'
+                    ) THEN 'processing'
+
+                    WHEN EXISTS (
+                        SELECT 1
+                        FROM `order`
+                        WHERE order.id_order_origin = order_origin.id
+                        AND order.status = 'confirmed'
+                        AND NOT EXISTS (
+                            SELECT 1
+                            FROM `order`
+                            WHERE order.id_order_origin = order_origin.id
+                            AND order.status = 'processing'
+                        )
+                    ) THEN 'confirmed'
+
+                    WHEN EXISTS (
+                        SELECT 1
+                        FROM `order`
+                        WHERE order.id_order_origin = order_origin.id
+                        AND order.status = 'shipped'
+                        AND NOT EXISTS (
+                            SELECT 1
+                            FROM `order`
+                            WHERE order.id_order_origin = order_origin.id
+                            AND (order.status = 'processing' OR order.status = 'confirmed')
+                        )
+                    ) THEN 'shipped'
+
+                    WHEN EXISTS (
+                        SELECT 1
+                        FROM `order`
+                        WHERE order.id_order_origin = order_origin.id
+                        AND order.status = 'completed'
+                        AND NOT EXISTS (
+                            SELECT 1
+                            FROM `order`
+                            WHERE order.id_order_origin = order_origin.id
+                            AND (order.status = 'processing' OR order.status = 'confirmed' OR order.status = 'shipped')
+                        )
+                    ) THEN 'completed'
+
+                    WHEN EXISTS (
+                        SELECT 1
+                        FROM `order`
+                        WHERE order.id_order_origin = order_origin.id
+                        AND order.status = 'paided'
+                        AND NOT EXISTS (
+                            SELECT 1
+                            FROM `order`
+                            WHERE order.id_order_origin = order_origin.id
+                            AND (order.status = 'processing' OR order.status = 'confirmed' OR order.status = 'shipped' OR order.status = 'completed')
+                        )
+                    ) THEN 'paided'
+
+                    WHEN EXISTS (
+                        SELECT 1
+                        FROM `order`
+                        WHERE order.id_order_origin = order_origin.id
+                        AND order.status = 'cancelled'
+                        AND NOT EXISTS (
+                            SELECT 1
+                            FROM `order`
+                            WHERE order.id_order_origin = order_origin.id
+                            AND (order.status = 'processing' OR order.status = 'confirmed' OR order.status = 'shipped' OR order.status = 'completed' OR order.status = 'paided' )
+                        )
+                    ) THEN 'cancelled'
+                    ELSE 'error'
+                END")
+        ]);
+        return $res;
+    }
 }
+

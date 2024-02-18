@@ -41,32 +41,32 @@
                             <div class="product-details-tab">
                                     <div id="img-1" class="zoomWrapper single-zoom">
                                         <a href="#">
-                                            <img id="zoom1" name="primary_img" src="{{ asset('img/product/'.$objItem->image) }}" data-zoom-image="{{ asset('img/product/'.$objItem->image) }}" alt="big-1">
+                                            <img id="zoom1" name="primary_img" src="{{ asset('storage/product/'.$objItem->image) }}" data-zoom-image="{{ asset('storage/product/'.$objItem->image) }}" alt="big-1">
                                         </a>
                                     </div>
                                     <div class="single-zoom-thumb">
                                         <ul class="s-tab-zoom owl-carousel single-product-active" id="gallery_01">
                                             <li>
                                                 <a href="#" class="elevatezoom-gallery active" data-update="" data-image="{{ asset('img/product/productbig4.jpg') }}" data-zoom-image="{{ asset('img/product/productbig4.jpg') }}">
-                                                    <img src="{{ asset('img/product/'.$objItem->image) }}" alt="zo-th-1" />
+                                                    <img src="{{ asset('storage/product/'.$objItem->image) }}" alt="zo-th-1" />
                                                 </a>
 
                                             </li>
                                             <li>
                                                 <a href="#" class="elevatezoom-gallery active" data-update="" data-image="{{ asset('img/product/productbig1.jpg') }}" data-zoom-image="{{ asset('img/product/productbig1.jpg') }}">
-                                                    <img src="{{ asset('img/product/'.$objItem->image) }}" alt="zo-th-1" />
+                                                    <img src="{{ asset('storage/product/'.$objItem->image) }}" alt="zo-th-1" />
                                                 </a>
 
                                             </li>
                                             <li>
                                                 <a href="#" class="elevatezoom-gallery active" data-update="" data-image="{{ asset('img/product/productbig2.jpg') }}" data-zoom-image="{{ asset('img/product/productbig2.jpg') }}">
-                                                    <img src="{{ asset('img/product/'.$objItem->image) }}" alt="zo-th-1" />
+                                                    <img src="{{ asset('storage/product/'.$objItem->image) }}" alt="zo-th-1" />
                                                 </a>
 
                                             </li>
                                             <li>
                                                 <a href="#" class="elevatezoom-gallery active" data-update="" data-image="{{ asset('img/product/productbig3.jpg') }}" data-zoom-image="{{ asset('img/product/productbig3.jpg') }}">
-                                                    <img src="{{ asset('img/product/'.$objItem->image) }}" alt="zo-th-1" />
+                                                    <img src="{{ asset('storage/product/'.$objItem->image) }}" alt="zo-th-1" />
                                                 </a>
 
                                             </li>

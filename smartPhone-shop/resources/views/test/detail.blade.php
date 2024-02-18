@@ -75,7 +75,7 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-6">
-                        @foreach ($fields as $item)
+                        @foreach ($fillable as $item)
                             <div class="form-group">
                                 <label for="ten_de_thi" class="col-md-3 col-sm-4 control-label"> {{ $item }} <span class="text-danger">(*)</span></label>
                                 <div class="col-md-9 col-sm-8">
@@ -97,28 +97,53 @@
                                     @elseif($page == 'Product' && $item == 'image')
                                         <input type="file" name="image" id="image" value='C:\\fakepath\\{{ $objItem->image }}'>
                                         <br>
-                                        <img src="{{ asset('img/product/'.$objItem->image) }}" alt="" width="120px">
-                                    {{-- Order_Origin page -----------------------------------------------}}
-                                    {{-- @elseif($page == 'Order_Origin' && $item != 'status')
-                                        <input type="text" value="{{ $objItem->$item }}" disabled>  --}}
+                                        <img src="{{ asset('storage/product/'.$objItem->image) }}" alt="" width="120px">
+                                    {{-- Order page -----------------------------------------------}}
+                                    @elseif ($page == 'Order' && $item == 'status' || $page == 'Sale_Origin' && $item == 'status' )
+                                        <select name="status" id="">
+                                            <option value="confirmed"
+                                                @if ($objItem->$item == 'confirmed')
+                                                    {{ 'selected' }}
+                                                @endif
+                                            value= 'confirmed' >confirmed</option>
+                                            <option value="unconfirmed"
+                                                @if ($objItem->$item == 'unconfirmed')
+                                                {{ 'selected' }}
+                                                @endif
+                                            value= 'unconfirmed'>unconfirmed</option>
+                                        </select>
+                                     {{-- User page -----------------------------------------------}}
+                                    @elseif ($page == 'User' && $item == 'permissions')
+                                        <select name="permissions" id="">
+                                            <option value="customer"
+                                                @if ($objItem->$item == 'customer')
+                                                    {{ 'selected' }}
+                                                @endif
+                                            value= 'customer' >customer</option>
+                                            <option value="admin"
+                                                @if ($objItem->$item == 'admin')
+                                                {{ 'selected' }}
+                                                @endif
+                                            value= 'admin'>admin</option>
+                                        </select>
                                     @else
                                         {{-- all field of all page out if --}}
-                                        <input type= @if($item == 'email' )
+                                        <input type= 
+                                            @if($item == 'email' )
                                                         {{ 'email' }}
-                                                @elseif($item == 'password')
+                                            @elseif($item == 'password')
                                                     {{ 'password' }}
-                                                @else
+                                            @else
                                                     {{ 'text' }}
-                                                @endif
+                                            @endif
                                             name="{{ $item }}" 
                                             id="{{ $item }}" 
-                                            class="form-control" 
+                                            class="form-control"
                                             value="{{ $objItem->$item }}"
-                                            @if($page == 'Category' && $item == 'quantity' || $item == 'id'||$page == 'Order_Origin' && $item != 'status') 
+                                            @if($page == 'Order')
                                                 {{ 'disabled' }}
                                             @endif
-                                        >
-                                    
+                                        >  
                                     @endif
                                     <span id="mes_sdt"></span>
                                 </div>
@@ -126,7 +151,6 @@
                         @endforeach
                     </div>
                 </div>
-
             </div>
             <!-- /.box-body -->
             <div class="text-center">

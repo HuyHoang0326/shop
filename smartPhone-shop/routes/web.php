@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\email\GmailController;
 use App\Http\Controllers\TestController;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,7 @@ Route::post('LoginClientPost', ['as'=>'LoginClientPost', 'uses' => 'Auth\LoginCl
 Route::get('logOut', ['as'=>'route_BackEnd_LogOut', 'uses' => 'Auth\LogOutController@index']);
 
 Route::middleware(['admin'])->group(function(){
+  	Route::get('/admin','ProductController@index')->name('route_BackEnd_productList');
     Route::get('/admin/product','ProductController@index')->name('route_BackEnd_productList');
     Route::match(['get','post'],'/admin/product/add','ProductController@add')->name('route_Backend_Product_Add');;
     Route::post('/admin/product/update/{id}','ProductController@update')->name('route_Backend_Product_Update');
@@ -42,7 +44,7 @@ Route::middleware(['admin'])->group(function(){
     Route::match(['get','post'],'/admin/category/add','CategoryController@add')->name('route_Backend_Category_Add');
     Route::get('admin/category/detail/{id}','CategoryController@detail')->name('route_Backend_Category_Detail');
     Route::post('admin/category/update/{id}','CategoryController@update')->name('route_Backend_Category_Update');
-    Route::get('admin/category/productList/{id}','ProductController@product_category_list')->name('route_Backend_Category_Product_Category_List');
+    Route::get('admin/category/productList/{id}','CategoryController@category_at_time')->name('route_Backend_Category_Product_Category_List');
 
     Route::get('/admin/order','OrderController@index')->name('route_BackEnd_OrderList');
     Route::match(['get','post'],'/admin/Order/add','OrderController@add')->name('route_Backend_Order_Add');
@@ -53,7 +55,7 @@ Route::middleware(['admin'])->group(function(){
     Route::get('/admin/order_origin','OrderOriginController@index')->name('route_BackEnd_Order_Origin_List');
     Route::match(['get','post'],'/admin/order_origin/add','OrderOriginController@add')->name('route_Backend_Order_Origin_Add');
     Route::get('admin/order_origin/detail/{id}','OrderOriginController@detail')->name('route_Backend_Order_Origin_Detail');
-    Route::post('admin/order_origin/update/{id}','OrderOriginController@update')->name('route_Backend_Order_Origin_Update');
+    Route::post('admin/order_origin/update/{id}','OrderOriginController@update')->name('route_Backend_Order_Origin_Update'); 
     Route::get('admin/order_origin/order_at_time/{id}','OrderOriginController@order_at_time')->name('route_Backend_Order_Origin_Order_At_Time');
     Route::get('/admin/order_origin/isset_order','OrderOriginController@isset_order')->name('route_BackEnd_Order_Origin_Isset_Order');
 
@@ -66,6 +68,7 @@ Route::middleware(['admin'])->group(function(){
     Route::match(['get','post'],'/admin/sale_origin/add','SaleOriginController@add')->name('route_Backend_Sale_Origin_Add');
     Route::get('admin/sale_origin/detail/{id}','SaleOriginController@detail')->name('route_Backend_Sale_Origin_Detail');
     Route::post('admin/sale_origin/update/{id}','SaleOriginController@update')->name('route_Backend_Sale_Origin_Update');
+    Route::get('admin/sale_origin/getSaleWithSaleOrigin/{id}','SaleOriginController@getSaleWithSaleOrigin')->name('route_Backend_Sale_Origin_Whith_Sale');
 });
 
     Route::get('/home','client\HomeController@index')->name('home');
@@ -76,6 +79,9 @@ Route::middleware(['admin'])->group(function(){
     Route::get('/shop','client\ShopController@index')->name('shop');
     Route::get('/about','client\AboutController@index')->name('about');
     Route::get('/blog','client\BlogController@index')->name('blog');
+    Route::get('/blog/fullwidth','client\BlogFullController@index')->name('blogfull');
+	Route::get('/shop/category/{id}','CategoryController@category_at_time_client')->name('route_Frontend_Category_At_Time');
+	Route::post('/client/user/add','client\UserController@add')->name('route_Frontend_User_Add');
 
     Route::middleware(['client'])->group(function(){
         Route::get('/my-account','client\AccountController@index')->name('my-account');
@@ -86,4 +92,6 @@ Route::middleware(['admin'])->group(function(){
         Route::get('/my-account/detail','client\dashboard_account\Account_detailsController@index')->name('my-account-detail');
         Route::post('/add-cart','client\CreateOrderController@index')->name('route_Frontend_add_order');
     });
+
+    Route::get('test-email',[GmailController::class,'emailOrder']);
 ?>

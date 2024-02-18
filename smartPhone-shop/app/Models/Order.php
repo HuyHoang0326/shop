@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\DB;
 class Order extends Model
 {
     use HasFactory;
-    protected $table = 'Order';
+    protected $table = 'order';
 
-    protected $fields = [
+    protected $fillable = [
         'id',
         'id_order_origin',
         'id_product',
@@ -25,7 +25,7 @@ class Order extends Model
     ];
 
     public function loadList($param=[]){
-        $query = DB::table($this->table)->select($this->fields)->get();
+        $query = DB::table($this->table)->select($this->fillable)->get();
         return $query;
     }
 
@@ -43,8 +43,6 @@ class Order extends Model
     }
     
     public function saveUpdate($params){
-        if (empty($params['cols']['id'])){
-        }
         $dataUpdate = [];
         foreach($params['cols'] as $colName =>$val){
             if($colName == 'id') continue;
@@ -52,5 +50,12 @@ class Order extends Model
         }
         $res = DB::table($this->table)->where('id',$params['cols']['id'])->update($dataUpdate);
         return $res;
+    }
+
+    public function updateStatus($id,$status){
+        $order = Order::findOrFail($id);
+        $order->status = $status;
+        $res =$order->save();
+        return $res; 
     }
 }

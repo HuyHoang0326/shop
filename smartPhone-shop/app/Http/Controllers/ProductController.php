@@ -11,7 +11,8 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     private $v;
-    protected $fields = [
+    public $page = 'Product';
+    public $fillable = [
         'id',
         'name',
         'category',
@@ -23,32 +24,28 @@ class ProductController extends Controller
     ];
     function __construct(){
         $this->v = [];
+        $this->v['page'] = $this->page;
+        $this->v['fillable'] = $this->fillable;
     }
 
     function index (Request $request) {
         $test = new Product();
-        $this->v['page'] = 'Product';
         $this->v['param'] = $request->all();
         $this->v['list']['item'] = $test->loadListProduct($this->v['param']);
-        $this->v['list']['fields'] = $this->fields;
-        $objCategory = new Category;
-        $this->v['category'] = $objCategory->loadList();
-        return view('test.list',$this->v);
+        $this->v['list']['fields'] = $this->fillable;
+        return view('admin.product.list',$this->v);
     }
 
     function detail ($id){
-        $this->v['page'] = 'Product';
         $this->v['_title'] = 'detail';
         $objProduct = new Product;
         $this->v['objItem'] = $objProduct->loadOne($id);
-        $this->v['fields'] = $this->fields;
         $objCategory = new Category;
         $this->v['category'] = $objCategory->loadList();
-        return view('test.detail',$this->v);
+        return view('admin.product.detail',$this->v);
     }
 
     public function update($id,ProductRequest $request){
-        $this->v['page'] = 'Product';
         $params = [];
         $params['cols'] = $request->post();
         $params['cols']['id']=$id;
@@ -64,10 +61,8 @@ class ProductController extends Controller
     }
 
     public function add(ProductRequest $request){
-        $this->v['page'] = 'Product';
         $method_route = 'route_BackEnd_productList';
         $this->v['_title'] = "create product";
-        $this->v['fields'] = $this->fields;
         $objCategory = new Category;
         $this->v['category'] = $objCategory->loadList();
         if($request->isMethod('post')){
@@ -89,12 +84,12 @@ class ProductController extends Controller
            else{
            }
         }
-        return view('test.add',$this->v);
+        return view('admin.product.add',$this->v);
     }
 
     public function uploadFile($file,$file_name){
         $path = $file->storeAs(
-            'public/product',$file_name);
+            'public/product',time()."-".$file_name);
         return $path;
     }
 }

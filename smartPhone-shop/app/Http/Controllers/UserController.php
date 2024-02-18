@@ -9,10 +9,12 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     private $v;
-    protected $fields =  [
+    protected $fillable =  [
         'id',
         'name',
         'email',
+        'number',
+        'address',
         'permissions'
     ];
     private $method_route = 'route_Backend_userList';
@@ -20,6 +22,8 @@ class UserController extends Controller
 
     function __construct(){
         $this->v = [];
+        $this->v['page'] = $this->page;
+        $this->v['fillable'] = $this->fillable;
     }
 
     function index (Request $request){
@@ -27,30 +31,22 @@ class UserController extends Controller
         $this->v['param'] = $request->all();
         $users = new User();
         $this->v['list']['item'] = $users->loadList($this->v['param']);
-        $this->v['list']['fields'] = $this->fields;
-        return view('test.list',$this->v);
+        $this->v['list']['fields'] = $this->fillable;
+        return view('admin.user.list',$this->v);
     }
 
     function detail ($id){
         $this->v['page']=$this->page;
         $this->v['_title'] = 'detail';
-        $this->v['fields'] = $this->fields;
         $objUser = new User;
         $this->v['objItem'] = $objUser->loadOne($id);
-        return view('test.detail',$this->v);
+        return view('admin.user.detail',$this->v);
     }
 
     public function add(UserRequest $request){
         $this->v['page']=$this->page;
-        $fields =[ 
-        'id',
-        'name',
-        'email',
-        'password',
-        'permissions'
-    ];
         $this->v['_title'] = "create user";
-        $this->v['fields'] = $fields;
+        $this->v['fillable'] = $this->fillable;
         if($request->isMethod('post')){
            $param = [];
            $param['cols'] = $request->post();

@@ -25,18 +25,17 @@ class Product extends Model
         'image'
     ];
 
-    public function loadListProduct($param = []){
+    public function loadListProduct($param = [])
+    {
         $query = DB::table('product')->select($this->fillable)->get();
-        foreach($query as $product){
-            $saleArr = [];
-            foreach($this->product_sale($product->id) as $sale){
-                array_push($saleArr,$sale->id_sale);
-                $saleArr = array_unique($saleArr);
-            }
-            $product->sale = implode(",",$saleArr);;
+
+        foreach ($query as $product) {
+            $product->sale = $this->getProductSales($product->id);
         }
+
         return $query;
     }
+
     public function saveNew($param){
         unset($param['cols']['_token']); 
         $data = array_merge($param["cols"]);
@@ -68,9 +67,11 @@ class Product extends Model
         return $query;
     }
 
-    public function product_sale($product){
-        $query = DB::table('sale')->select('id_sale')->where('id_product',$product)->get();
-        return $query;
+    public function getProductSales($productId)
+    {
+        $sales = DB::table('sale')->select('id_sale')->where('id_product', $productId)->get();
+
+        return $sales->pluck('id_sale')->implode(',');
     }
 }
 ?>

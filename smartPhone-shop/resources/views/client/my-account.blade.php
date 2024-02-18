@@ -1,6 +1,15 @@
 @extends('client.layout')
 @section('content')
 <body>
+  @if ( Session::has('success') )
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <strong>{{ Session::get('success') }}</strong>
+        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+            <span class="sr-only">Close</span>
+        </button>
+        
+    </div>
+@endif
 
    <!--Offcanvas menu area start-->
     <!--Offcanvas menu area end-->
@@ -209,12 +218,7 @@
     <!-- JS
 ============================================ -->
 
-    <!-- Plugins JS -->
-    <script src="assets/js/plugins.js"></script>
-
-    <!-- Main JS -->
-    <script src="assets/js/main.js"></script>
-
+	<script src="{{asset('js/hidden_alert.js')}}"></script>
 
 
 </body>

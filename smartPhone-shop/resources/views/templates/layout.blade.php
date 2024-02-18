@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>ITPlus Academy::@yield('title')</title>
+    <title>hoangShop.click</title>
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -31,6 +31,8 @@
     <link rel="stylesheet" href="{{ asset('default/dist/css/spx.css')}}">
     <link rel="stylesheet" href="{{ asset('css/SpxApp.css')}}?b={{config('app.build_version')}}">
     <link rel="stylesheet" href="{{ asset('css/backend.css')}}?b={{config('app.build_version')}}">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -46,6 +48,17 @@
     <link rel="stylesheet" href="{{asset('default/bower_components/select2/dist/css/select2.min.css')}}">
     @yield('css')
     <style>
+    .ercl_alert {
+        position: fixed;
+        top: 83px;
+        right: 50px;
+        padding: 20px;
+        width: 155px;
+        background-color: rgb(88, 88, 251);
+        color: white;
+        border-radius: 5px;
+        }
+        
         .select2-container--default .select2-selection--single, .select2-selection .select2-selection--single {
             padding: 3px 0px;
             height: 30px;
@@ -219,17 +232,7 @@
                     </ul>
                     <ul class="treeview-menu">
                         <li>
-                            <a href="{{ route('route_BackEnd_Order_Origin_List') }}"><i class="fa fa-circle-o"></i>Yêu Cầu Sản Phẩm</a>
-                        </li>
-                    </ul>
-                    <ul class="treeview-menu">
-                        <li>
-                            <a href="{{ route('route_BackEnd_OrderList') }}"><i class="fa fa-circle-o"></i>Chi Tiết Yêu Cầu Sản Phẩm</a>
-                        </li>
-                    </ul>
-                    <ul class="treeview-menu">
-                        <li>
-                            <a href="{{ route('route_BackEnd_saleList') }}"><i class="fa fa-circle-o"></i>Chi Tiết Giảm Giá</a>
+                            <a href="{{ route('route_BackEnd_Order_Origin_List') }}"><i class="fa fa-circle-o"></i>Danh Sách Đơn Hàng</a>
                         </li>
                     </ul>
                     <ul class="treeview-menu">
@@ -247,7 +250,81 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div id="app" class="content-wrapper" style="background-color: #ecf0f5;">
+        <section class="content-header">
+            {{--        @include('templates.header-action')--}}
+            <div class="clearfix"></div>
+            <div style="border: 1px solid #ccc;margin-top: 10px;padding: 5px;">
+                <form action="" method="get">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="form-group">
+                                <input type="text" name="search_ten_nguoi_dung" class="form-control" placeholder="Tên người dùng"
+                                       value="">
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-xs-12" style="text-align:center;">
+                            <div class="form-group">
+                                <button type="submit" name="btnSearch" class="btn btn-primary btn-sm "><i
+                                        class="fa fa-search" style="color:white;"></i> Search
+                                </button>
+                                <a href="{{ url('/user') }}" class="btn btn-default btn-sm "><i class="fa fa-remove"></i>
+                                    Clear </a>
+                                <a href="{{ route('route_Backend_'.$page.'_Add') }}" class="btn btn-info btn-sm"><i class="fa fa-user-plus" style="color:white;"></i>
+                                    Add New {{ $page }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+            </div>
+        </section>
+    
+        <!-- Main content -->
+        <section class="content appTuyenSinh">
+            <div id="msg-box">
+                <?php //Hiển thị thông báo thành công?>
+                @if ( Session::has('success') )
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <strong>{{ Session::get('success') }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                    </div>
+                @endif
+                <?php //Hiển thị thông báo lỗi?>
+                @if ( Session::has('error') )
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <strong>{{ Session::get('error') }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                    </div>
+                @endif
+                @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                    </div>
+                @endif
+            </div>
+            <div id="liveAlertPlaceholder"></div>
         @yield('content')
+        <br>
+        <div class="text-center">
+            //phân trang
+        </div>
+        <index-cs ref="index_cs"></index-cs>
+        </section>
         <div class="clearfix"></div>
 
     </div>
@@ -325,6 +402,7 @@
 <script src="{{ asset('default/dist/js/demo.js')}}"></script>
 <script src="{{ asset('js/jquery.doubleScroll.js')}}?b=1 "></script>
 <script src="{{ asset('js/SpxApp.js')}}?b=1"></script>
+<script src="{{ asset('js/admin/alert.js') }}"></script>
 {{--<script src="{{ taisan('/public/js/backend.js')}}?b={{config('app.build_version')}}"></script>--}}
 
 {{--@yield('script')--}}
@@ -357,24 +435,6 @@
             checkboxClass: 'icheckbox_flat-green',
             radioClass: 'iradio_flat-green'
         });
-
-        function getMessage() {
-
-            $.get('/apps/ajax-get-help-desk')
-                .done(function (data, status) {
-                    if (status == 'success') {
-                        // console.log(data);
-                        $('#getMessage').html('(<span class="text-bold" style="color: #f1b351;">' + data + '</span>)');
-                    }
-                })
-                .fail(function (err) {
-                    console.log(err)
-                });
-            // setTimeout(getMessage,10000);
-        }
-
-        getMessage();
-
 
     })
 </script>

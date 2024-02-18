@@ -69,7 +69,7 @@
                     <div class="shop_toolbar_wrapper">
                         <div class="shop_toolbar_btn">
                             <button data-role="grid_4" type="button" class=" active btn-grid-4" data-toggle="tooltip" title="4"></button>
-                            <button data-role="grid_list" type="button" class="btn-list" data-toggle="tooltip" title="List"></button>
+                       
                         </div>
                         <div class=" niceselect_option">
                             <form class="select_option" action="#">
@@ -97,8 +97,8 @@
                             <article class="single_product">
                                 <figure>
                                     <div class="product_thumb">
-                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/'.$product->image) }}" alt=""></a>
-                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('img/product/'.$product->image) }}" alt=""></a>
+                                        <a class="primary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('storage/product/'.$product->image) }}" alt=""></a>
+                                        <a class="secondary_img" href="{{ route('route_Frontend_Product_Detail',['id'=>$product->id]) }}"><img src="{{ asset('storage/product/'.$product->image) }}" alt=""></a>
                                         <div class="label_product">
                                             <span class="label_sale">Sale</span>
                                         </div>

@@ -29,7 +29,11 @@
         </div>
     </div>
     <!--breadcrumbs area end-->
-
+    @if ( Session::has('error') )
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <strong>{{ Session::get('error') }}</strong>
+    </div>
+@endif
     <!--shopping cart area start -->
     <div class="cart_page_bg">
         <div class="container">

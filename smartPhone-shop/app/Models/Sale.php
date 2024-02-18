@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\DB;
 class Sale extends Model
 {
     use HasFactory;
-    protected $table = 'Sale';
+    protected $table = 'sale';
 
-    protected $fields = [
+    protected $fillable = [
         'id',
         'id_product',
         'id_sale',
@@ -22,7 +22,7 @@ class Sale extends Model
     ];
 
     public function loadList($param=[]){
-        $query = DB::table($this->table)->select($this->fields)->get();
+        $query = DB::table($this->table)->select($this->fillable)->get();
         return $query;
     }
 
@@ -52,7 +52,7 @@ class Sale extends Model
     }
 
     public function loadListSaleOririnID ($id){
-        $query = DB::table($this->table)->where('id_sale',$id);
+        $query = DB::table($this->table)->where('id_sale',$id)->get();
         return $query;
     }
 
@@ -65,5 +65,32 @@ class Sale extends Model
         $query = DB::table('sale_origin')->select('price')->where('id',$id_sale)->get();
         $price = $query[0]->price;
         return $price;
+    }
+
+    public function syncSale($idSaleOrigin){
+        $res = DB::table($this->table)
+            ->where('id_sale', $idSaleOrigin)
+            ->update([
+                'status' => DB::raw("
+                    CASE
+                        WHEN EXISTS (
+                            SELECT 1 
+                            FROM sale_origin
+                            WHERE sale.id_sale = sale_origin.id
+                            AND sale_origin.status = 'off'
+                        )
+                        THEN 'off'
+                    END
+                ")
+            ]);
+        return $res;
+    }
+    
+
+    public function updateStatus($id,$status){
+        $order = Sale::findOrFail($id);
+        $order->status = $status;
+        $res = $order->save();
+        return $res;
     }
 }

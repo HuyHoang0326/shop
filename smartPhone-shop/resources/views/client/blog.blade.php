@@ -43,11 +43,11 @@
                                 <article class="single_blog">
                                     <figure>
                                         <div class="blog_thumb">
-                                            <a href="blog-fullwidth.html"><img src="{{ asset('img/blog/blogpage1.jpg') }}"
+                                            <a href="{{ route('blogfull') }}"><img src="{{ asset('img/blog/blogpage1.jpg') }}"
                                                     alt=""></a>
                                         </div>
                                         <figcaption class="blog_content">
-                                            <h4 class="post_title"><a href="blog-fullwidth.html">Blog image post
+                                            <h4 class="post_title"><a href="{{ route('blogfull') }}">Blog image post
                                                     (sticky)</a></h4>
                                             <div class="blog_meta">
                                                 <span class="author">Posted by : <a href="#">admin</a> / </span>
@@ -62,7 +62,7 @@
                                                     molestiae!</p>
                                             </div>
                                             <footer class="btn_more">
-                                                <a href="blog-fullwidth.html"> Read more</a>
+                                                <a href="{{ route('blogfull') }}"> Read more</a>
                                             </footer>
                                         </figcaption>
                                     </figure>
@@ -84,7 +84,7 @@
                                             </div>
                                         </div>
                                         <figcaption class="blog_content">
-                                            <h4 class="post_title"><a href="blog-fullwidth.html">Post with Gallery</a>
+                                            <h4 class="post_title"><a href="{{ route('blogfull') }}">Post with Gallery</a>
                                             </h4>
                                             <div class="blog_meta">
                                                 <span class="author">Posted by : <a href="#">admin</a> / </span>
@@ -99,7 +99,7 @@
                                                     molestiae!</p>
                                             </div>
                                             <footer class="btn_more">
-                                                <a href="blog-fullwidth.html"> Read more</a>
+                                                <a href="{{ route('blogfull') }}"> Read more</a>
                                             </footer>
                                         </figcaption>
                                     </figure>
@@ -107,11 +107,11 @@
                                 <article class="single_blog">
                                     <figure>
                                         <div class="blog_thumb">
-                                            <a href="blog-fullwidth.html"><img src="{{ asset('img/blog/blogpage3.jpg') }}"
+                                            <a href="{{ route('blogfull') }}"><img src="{{ asset('img/blog/blogpage3.jpg') }}"
                                                     alt=""></a>
                                         </div>
                                         <figcaption class="blog_content">
-                                            <h4 class="post_title"><a href="blog-fullwidth.html">Post with Audio</a></h4>
+                                            <h4 class="post_title"><a href="{{ route('blogfull') }}">Post with Audio</a></h4>
                                             <div class="blog_meta">
                                                 <span class="author">Posted by : <a href="#">admin</a> / </span>
                                                 <span class="meta_date">Posted on : <a href="#">June 22, 2019</a></span>
@@ -129,7 +129,7 @@
                                                     ornare tortor ac ante egestas hendrerit. Aliquam et is </p>
                                             </div>
                                             <footer class="btn_more">
-                                                <a href="blog-fullwidth.html"> Read more</a>
+                                                <a href="{{ route('blogfull') }}"> Read more</a>
                                             </footer>
                                         </figcaption>
                                     </figure>
@@ -141,7 +141,7 @@
                                                 allow="autoplay; encrypted-media" allowfullscreen></iframe>
                                         </div>
                                         <figcaption class="blog_content">
-                                            <h4 class="post_title"><a href="blog-fullwidth.html">Post with Video</a></h4>
+                                            <h4 class="post_title"><a href="{{ route('blogfull') }}">Post with Video</a></h4>
                                             <div class="blog_meta">
                                                 <span class="author">Posted by : <a href="#">admin</a> / </span>
                                                 <span class="meta_date">Posted on : <a href="#">June 22, 2019</a></span>
@@ -155,7 +155,7 @@
                                                     molestiae!</p>
                                             </div>
                                             <footer class="btn_more">
-                                                <a href="blog-fullwidth.html"> Read more</a>
+                                                <a href="{{ route('blogfull') }}"> Read more</a>
                                             </footer>
                                         </figcaption>
                                     </figure>
@@ -163,11 +163,11 @@
                                 <article class="single_blog">
                                     <figure>
                                         <div class="blog_thumb">
-                                            <a href="blog-fullwidth.html"><img src="{{ asset('img/blog/blogpage4.jpg') }}"
+                                            <a href="{{ route('blogfull') }}"><img src="{{ asset('img/blog/blogpage4.jpg') }}"
                                                     alt=""></a>
                                         </div>
                                         <figcaption class="blog_content">
-                                            <h4 class="post_title"><a href="blog-fullwidth.html">Maecenas ultricies</a>
+                                            <h4 class="post_title"><a href="{{ route('blogfull') }}">Maecenas ultricies</a>
                                             </h4>
                                             <div class="blog_meta">
                                                 <span class="author">Posted by : <a href="#">admin</a> / </span>
@@ -182,7 +182,7 @@
                                                     molestiae!</p>
                                             </div>
                                             <footer class="btn_more">
-                                                <a href="blog-fullwidth.html"> Read more</a>
+                                                <a href="{{ route('blogfull') }}"> Read more</a>
                                             </footer>
                                         </figcaption>
                                     </figure>
@@ -190,11 +190,11 @@
                                 <article class="single_blog">
                                     <figure>
                                         <div class="blog_thumb">
-                                            <a href="blog-fullwidth.html"><img src="{{ asset('img/blog/blogpage5.jpg') }}"
+                                            <a href="{{ route('blogfull') }}"><img src="{{ asset('img/blog/blogpage5.jpg') }}"
                                                     alt=""></a>
                                         </div>
                                         <figcaption class="blog_content">
-                                            <h4 class="post_title"><a href="blog-fullwidth.html">Praesent imperdiet</a>
+                                            <h4 class="post_title"><a href="{{ route('blogfull') }}">Praesent imperdiet</a>
                                             </h4>
                                             <div class="blog_meta">
                                                 <span class="author">Posted by : <a href="#">admin</a> / </span>
@@ -209,7 +209,7 @@
                                                     molestiae!</p>
                                             </div>
                                             <footer class="btn_more">
-                                                <a href="blog-fullwidth.html"> Read more</a>
+                                                <a href="{{ route('blogfull') }}"> Read more</a>
                                             </footer>
                                         </figcaption>
                                     </figure>
@@ -247,42 +247,42 @@
                                 </div>
                                 <div class="post_wrapper">
                                     <div class="post_thumb">
-                                        <a href="blog-fullwidth.html"><img src="{{ asset('img/blog/comment2.png') }}"
+                                        <a href="{{ route('blogfull') }}"><img src="{{ asset('img/blog/comment2.png') }}"
                                                 alt=""></a>
                                     </div>
                                     <div class="post_info">
                                         <span> <a href="#">demo</a> says:</span>
-                                        <a href="blog-fullwidth.html">Quisque semper nunc</a>
+                                        <a href="{{ route('blogfull') }}">Quisque semper nunc</a>
                                     </div>
                                 </div>
                                 <div class="post_wrapper">
                                     <div class="post_thumb">
-                                        <a href="blog-fullwidth.html"><img src="{{ asset('img/blog/comment2.png') }}"
+                                        <a href="{{ route('blogfull') }}"><img src="{{ asset('img/blog/comment2.png') }}"
                                                 alt=""></a>
                                     </div>
                                     <div class="post_info">
                                         <span><a href="#">admin</a> says:</span>
-                                        <a href="blog-fullwidth.html">Quisque orci porta...</a>
+                                        <a href="{{ route('blogfull') }}">Quisque orci porta...</a>
                                     </div>
                                 </div>
                                 <div class="post_wrapper">
                                     <div class="post_thumb">
-                                        <a href="blog-fullwidth.html"><img src="{{ asset('img/blog/comment2.png') }}"
+                                        <a href="{{ route('blogfull') }}"><img src="{{ asset('img/blog/comment2.png') }}"
                                                 alt=""></a>
                                     </div>
                                     <div class="post_info">
                                         <span><a href="#">demo</a> says:</span>
-                                        <a href="blog-fullwidth.html">Quisque semper nunc</a>
+                                        <a href="{{ route('blogfull') }}">Quisque semper nunc</a>
                                     </div>
                                 </div>
                                 <div class="post_wrapper">
                                     <div class="post_thumb">
-                                        <a href="blog-fullwidth.html"><img src="{{ asset('img/blog/comment2.png') }}"
+                                        <a href="{{ route('blogfull') }}"><img src="{{ asset('img/blog/comment2.png') }}"
                                                 alt=""></a>
                                     </div>
                                     <div class="post_info">
                                         <span><a href="#">admin</a> says:</span>
-                                        <a href="blog-fullwidth.html">Quisque semper nunc</a>
+                                        <a href="{{ route('blogfull') }}">Quisque semper nunc</a>
                                     </div>
                                 </div>
                             </div>
@@ -292,37 +292,37 @@
                                 </div>
                                 <div class="post_wrapper">
                                     <div class="post_thumb">
-                                        <a href="blog-fullwidth.html"><img src="{{ asset('img/blog/blog6.jpg') }}" alt=""></a>
+                                        <a href="{{ route('blogfull') }}"><img src="{{ asset('img/blog/blog6.jpg') }}" alt=""></a>
                                     </div>
                                     <div class="post_info">
-                                        <h4><a href="blog-fullwidth.html">Blog image post</a></h4>
+                                        <h4><a href="{{ route('blogfull') }}">Blog image post</a></h4>
                                         <span>March 16, 2018 </span>
                                     </div>
                                 </div>
                                 <div class="post_wrapper">
                                     <div class="post_thumb">
-                                        <a href="blog-fullwidth.html"><img src="{{ asset('img/blog/blog7.jpg') }}" alt=""></a>
+                                        <a href="{{ route('blogfull') }}"><img src="{{ asset('img/blog/blog7.jpg') }}" alt=""></a>
                                     </div>
                                     <div class="post_info">
-                                        <h4><a href="blog-fullwidth.html">Post with Gallery</a></h4>
+                                        <h4><a href="{{ route('blogfull') }}">Post with Gallery</a></h4>
                                         <span>March 16, 2018 </span>
                                     </div>
                                 </div>
                                 <div class="post_wrapper">
                                     <div class="post_thumb">
-                                        <a href="blog-fullwidth.html"><img src="{{ asset('img/blog/blog8.jpg') }}" alt=""></a>
+                                        <a href="{{ route('blogfull') }}"><img src="{{ asset('img/blog/blog8.jpg') }}" alt=""></a>
                                     </div>
                                     <div class="post_info">
-                                        <h4><a href="blog-fullwidth.html">Post with Audio</a></h4>
+                                        <h4><a href="{{ route('blogfull') }}">Post with Audio</a></h4>
                                         <span>March 16, 2018 </span>
                                     </div>
                                 </div>
                                 <div class="post_wrapper">
                                     <div class="post_thumb">
-                                        <a href="blog-fullwidth.html"><img src="{{ asset('img/blog/blog9.jpg') }}" alt=""></a>
+                                        <a href="{{ route('blogfull') }}"><img src="{{ asset('img/blog/blog9.jpg') }}" alt=""></a>
                                     </div>
                                     <div class="post_info">
-                                        <h4><a href="blog-fullwidth.html">Post with Video</a></h4>
+                                        <h4><a href="{{ route('blogfull') }}">Post with Video</a></h4>
                                         <span>March 16, 2018 </span>
                                     </div>
                                 </div>

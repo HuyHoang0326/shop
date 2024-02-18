@@ -216,10 +216,6 @@
                         <div class="cart_button">
                             <a href="{{ route('route_Frontend_Cart') }}">View cart</a>
                         </div>
-                        <div class="cart_button">
-                            <a class="active" href="{{ route('route_Frontend_Checkout') }}">Checkout</a>
-                        </div>
-
                     </div>
                 </div>
                 <!--mini cart end-->

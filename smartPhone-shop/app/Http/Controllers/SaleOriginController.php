@@ -3,15 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SaleOriginRequest;
+use App\Models\Sale;
 use App\Models\Sale_origin;
-use App\Http\Requests\StoreSale_originRequest;
-use App\Http\Requests\UpdateSale_originRequest;
 use Illuminate\Http\Request;
 
 class SaleOriginController extends Controller
 {
     private $v;
-    protected $fields = [
+    protected $fillable = [
         'id',
         'price',	
         'description',
@@ -25,31 +24,28 @@ class SaleOriginController extends Controller
     protected $page = 'Sale_Origin';
     function __construct(){
         $this->v = [];
+        $this->v['page'] = $this->page;
+        $this->v['fillable'] = $this->fillable;
     }
 
     public function index (Request $request){
         $this->v['_title'] = $this->page;
-        $this->v['page'] = $this->page;
         $param = $request->all();
         $obj = new Sale_origin;
-        $this->v['list']['fields'] = $this->fields;
+        $this->v['list']['fields'] = $this->fillable;
         $this->v['list']['item'] = $obj->loadList($param);
-        return view('test.list',$this->v);
+        return view('admin.sale_origin.list',$this->v);
     }
 
     public function detail ($id){
-        $this->v['page'] = $this->page;
         $this->v['_title'] = 'detail';
-        $this->v['fields'] = $this->fields;
         $objItem = new Sale_origin;
         $this->v['objItem'] = $objItem->loadOne($id);
-        return view('test.detail',$this->v);
+        return view('admin.sale_origin.detail',$this->v);
     }
 
     public function update($id, SaleOriginRequest $request){
-        $this->v['page'] = $this->page;
         $this->v['_title'] = 'update';
-        $this->v['fields'] = $this->fields;
         $param['cols'] = $request->post();
         $param['cols']['id']= $id;
         unset($param['cols']['_token']);
@@ -59,9 +55,7 @@ class SaleOriginController extends Controller
     }
 
     public function add(SaleOriginRequest $request){
-        $this->v['page'] = $this->page;
         $this->v['_title'] = "create Sale";
-        $this->v['fields'] = $this->fields;
         if($request->isMethod('post')){
            $param = [];
            $param['cols'] = $request->post();
@@ -76,6 +70,16 @@ class SaleOriginController extends Controller
            else{
            }
         }
-        return view('test.add',$this->v);
+        return view('admin.sale_origin.add',$this->v);
+    }
+
+    public function getSaleWithSaleOrigin ($id){
+        $objSale = new SaleController;
+        $modelSale = new Sale();
+        $this->v['page'] = $objSale->page;
+        $list = $modelSale->loadListSaleOririnID($id);
+        $this->v['list']['fields'] = $objSale->fillable;
+        $this->v['list']['item'] = $list;
+        return view('admin.sale.list',$this->v);
     }
 }

@@ -10,8 +10,12 @@ use Illuminate\Support\Facades\Auth;
 class OrderController extends Controller
 {
     private $v;
+    protected $page = 'Order';
+    protected $fillable;
     function __construct(){
         $this->v = [];
+        $this->v['page'] = $this->page;
+        $this->v['fillable'] = $this->fillable;
     }
     function index(){
         $objUser = Auth::user();

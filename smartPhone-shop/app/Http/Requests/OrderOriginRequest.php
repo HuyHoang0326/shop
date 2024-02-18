@@ -32,13 +32,13 @@ class OrderOriginRequest extends FormRequest
                 switch($currenAction){
                     case 'add' :
                         $rules = [
-                            'id_user'=>'exists:User,id',
+                            'id_user'=>'exists:users,id',
                             'status'=>'required',
                         ];
                         break;
                     case 'update' :
                         $rules = [
-                            'id_user'=>'exists:User,id',
+                            'id_user'=>'exists:users,id',
                             'status'=>'required',
                             ];
                             break;

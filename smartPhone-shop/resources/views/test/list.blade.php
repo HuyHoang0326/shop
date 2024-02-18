@@ -157,39 +157,44 @@
                         </tr>
                         @foreach ($list['item'] as $item )
                             <tr>
-                                @foreach ($list['fields'] as $fields)
+                                @foreach ($list['fields'] as $fillable)
                                     {{-- all page -------------------------------------------------------------------------}}
                                     {{-- only field name all page setup route --}}
-                                    @if($fields == 'name')
+                                    @if($fillable == 'name')
                                         <td class="text-center"><a style="color:#333333;font-weight: bold;" href="{{ route('route_Backend_'.$page.'_Detail',['id'=>$item->id]) }}" style="white-space:unset;text-align: justify;"> {{ $item->name }} <i class="fa fa-edit"></i></a></td>
                                     @endif
                                     {{-- category page -------------------------------------------------------------------------}}
                                     {{-- not change quantity in category and id all page --}}
-                                    @if($page == 'Category' && $fields == 'quantity' && $item->quantity != 0)
+                                    @if($page == 'Category' && $fillable == 'quantity' && $item->quantity != 0)
                                         <td class="text-center"><a style="color:#333333;font-weight: bold;" href="{{ route('route_Backend_Category_Product_Category_List',['id'=>$item->id]) }}" style="white-space:unset;text-align: justify;"> {{ $item->quantity }} <i class="fa fa-edit"></i></a></td>
                                     {{-- product page -------------------------------------------------------------------------}}
                                     {{-- only category in product page show category name --}}
-                                    @elseif($fields == 'category' && $page == 'Product')
+                                    @elseif($fillable == 'category' && $page == 'Product')
                                         @foreach($category as $categoryItem)
                                             @if( $item->category == $categoryItem->id)
                                                 <td class="text-center">{{ $categoryItem->name }}</td>
                                             @endif
                                         @endforeach
                                     {{-- order page -------------------------------------------------------------------------}}
+                                    @elseif($page == 'Order' && $fillable == 'status')
+                                        <td class="text-center"><a style="color:#333333;font-weight: bold;" href="{{ route('route_Backend_Order_Detail',['id'=>$item->id]) }}" style="white-space:unset;text-align: justify;"> {{ $item->status }} <i class="fa fa-edit"></i></a></td>
                                     {{-- setup order at time --}}
-                                    @elseif($page == 'Order_Origin' && $fields == 'id')
+                                    @elseif($page == 'Order_Origin' && $fillable == 'id')
+
                                         <td class="text-center"><a style="color:#333333;font-weight: bold;" href="{{ route('route_Backend_Order_Origin_Order_At_Time',['id'=>$item->id]) }}" style="white-space:unset;text-align: justify;"> {{ $item->id }} <i class="fa fa-edit"></i></a></td>
-                                    @elseif($page == 'Order_Origin' && $fields == 'status')
-                                        <td class="text-center"><a style="color:#333333;font-weight: bold;" href="{{ route('route_Backend_Order_Origin_Detail',['id'=>$item->id]) }}" style="white-space:unset;text-align: justify;"> {{ $item->status }} <i class="fa fa-edit"></i></a></td>
                                     {{-- sale page -------------------------------------------------------------------------}}
-                                     @elseif($page == 'Sale' && $fields == 'id')
+                                    @elseif($page == 'Sale' && $fillable == 'id')
                                         <td class="text-center"><a style="color:#333333;font-weight: bold;" href={{ route('route_Backend_'.$page.'_Detail',['id'=>$item->id]) }} style="white-space:unset;text-align: justify;"> {{ $item->id }} <i class="fa fa-edit"></i></a></td>
+                                    @elseif($page == 'Sale_Origin' && $fillable == 'status')
+                                        <td class="text-center"><a style="color:#333333;font-weight: bold;" href={{ route('route_Backend_'.$page.'_Detail',['id'=>$item->id]) }} style="white-space:unset;text-align: justify;"> {{ $item->status }} <i class="fa fa-edit"></i></a></td>
+                                    @elseif($page == 'Sale_Origin' && $fillable == 'id')
+                                        <td class="text-center"><a style="color:#333333;font-weight: bold;" href={{ route('route_Backend_Sale_Origin_Whith_Sale',['id'=>$item->id]) }} style="white-space:unset;text-align: justify;"> {{ $item->id }} <i class="fa fa-edit"></i></a></td>
                                     {{-- all page out if -------------------------------------------------------------------------}}
                                     {{-- all field not name of all page not setup route --}}
-                                   @elseif($fields == 'image')
+                                   @elseif($fillable == 'image')
                                         <td><img src="{{ asset('/storage/product/'.$item->image) }}" width="50px" alt=""></td>
-                                    @elseif($fields != 'name')
-                                        <td class="text-center">{{ $item->$fields }}</td>
+                                    @elseif($fillable != 'name')
+                                        <td class="text-center">{{ $item->$fillable }}</td>
                                     @endif
                                 @endforeach 
                             </tr>

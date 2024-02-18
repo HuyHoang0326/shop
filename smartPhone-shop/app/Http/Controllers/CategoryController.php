@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CartegoryRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Sale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
     private $v;
-    protected $fields = [
+    protected $fillable = [
         'id',
         'name',
         'quantity'
@@ -21,32 +22,29 @@ class CategoryController extends Controller
     protected $page = 'Category';
     function __construct(){
         $this->v = [];
+        $this->v['page'] = $this->page;
+        $this->v['fillable'] = $this->fillable;
     }
 
     public function index (Request $request){
         $this->v['_title'] = $this->page;
-        $this->v['page'] = $this->page;
         $param = $request->all();
         $obj = new Category;
-        $this->v['list']['fields'] = $this->fields;
+        $this->v['list']['fields'] = $this->fillable;
         $this->v['list']['item'] = $obj->loadList($param);
         $this->count_product($this->v['list']['item']);
-        return view('test.list',$this->v);
+        return view('admin.category.list',$this->v);
     }
 
     public function detail ($id){
-        $this->v['page'] = $this->page;
         $this->v['_title'] = 'detail';
-        $this->v['fields'] = $this->fields;
         $objItem = new Category;
         $this->v['objItem'] = $objItem->loadOne($id);
         return view('test.detail',$this->v);
     }
 
     public function update($id, CartegoryRequest $request){
-        $this->v['page'] = $this->page;
         $this->v['_title'] = 'update';
-        $this->v['fields'] = $this->fields;
         $param['cols'] = $request->post();
         $param['cols']['id']= $id;
         unset($param['cols']['_token']);
@@ -56,10 +54,8 @@ class CategoryController extends Controller
     }
 
     public function add(CartegoryRequest $request){
-        $this->v['page'] = 'Category';
         $method_route = 'route_BackEnd_categoryList';
         $this->v['_title'] = "create category";
-        $this->v['fields'] = $this->fields;
         if($request->isMethod('post')){
            $param = [];
            $param['cols'] = $request->post();
@@ -77,17 +73,41 @@ class CategoryController extends Controller
         return view('test.add',$this->v);
     }
 
-    public function count_product($param){
-        $queryProductModel = new Category;
-        $queryProduct = $queryProductModel->count_product();
-        foreach($queryProduct as $queryProductItem){
-            foreach($param as $paramItem){
-                if($queryProductItem->id == $paramItem->id && $queryProductItem->quantity != $paramItem->quantity){
-                    DB::table($this->page)->where('id',$queryProductItem->id)->update((array)$queryProductItem);
+    public function count_product($categoryOld){
+        $model = new Category;
+        $categoryQuantity = $model->count_product();
+        foreach($categoryQuantity as $categoryQuantityItem){
+            foreach($categoryOld as $categoryOldItem){
+                if($categoryQuantityItem->id == $categoryOldItem->id && $categoryQuantityItem->quantity != $categoryOldItem->quantity){
+                    DB::table('category')->where('id',$categoryQuantityItem->id)->update((array)$categoryQuantityItem);
                 }
             }
         }
 
+    }
+
+  public function category_at_time($id){
+    	$productController = new ProductController;
+        $objCategory =  new Category();
+        $this->v['category'] = $objCategory->loadList();
+        $this->v['page'] = 'Product';
+        $list = $objCategory->category_at_time($id);
+        $this->v['list']['fields'] = $productController->fillable;
+        $this->v['list']['item'] = $list;
+        return view('admin.product.list',$this->v);
+    }
+  public function category_at_time_client($id){
+    	$productController = new ProductController;
+        $objCategory =  new Category();
+        $objsale = new Sale();
+        $this->v['saleObj'] = $objsale;
+        $this->v['sale'] = $objsale->loadList();
+        $this->v['category'] = $objCategory->loadList();
+        $this->v['page'] = 'Product';
+        $list = $objCategory->category_at_time($id);
+        $this->v['list']['fields'] = $productController->fillable;
+        $this->v['list']['item'] = $list;
+        return view('client/shop-fullwidth',$this->v);
     }
 }
 ?>

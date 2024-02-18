@@ -12,7 +12,7 @@ class AboutController extends Controller
 {
     private $v;
     protected $page = 'home';
-    protected $fields = [
+    protected $fillable = [
         'id',
         'name',
         'category',
@@ -25,6 +25,8 @@ class AboutController extends Controller
 
     function __construct(){
         $this->v = [];
+        $this->v['page'] = $this->page;
+        $this->v['fillable'] = $this->fillable;
     }
     public function index (Request $request){
         return view('client/about',$this->v);

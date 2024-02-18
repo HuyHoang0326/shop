@@ -18,7 +18,7 @@ class LoginClientController extends Controller
 {
     private $v;
     protected $page = 'home';
-    protected $fields = [
+    protected $fillable = [
         'id',
         'name',
         'category',
@@ -38,7 +38,7 @@ class LoginClientController extends Controller
         $test = new Product();
         $this->v['param'] = [];
         $this->v['list']['item'] = $test->loadListProduct($this->v['param']);
-        $this->v['list']['fields'] = $this->fields;
+        $this->v['list']['fields'] = $this->fillable;
         $objCategory = new Category;
         $this->v['category'] = $objCategory->loadList();
         $objsale = new Sale;
@@ -66,6 +66,7 @@ class LoginClientController extends Controller
             $password = $request->input('password');
             $checkLogin = Auth::attempt(['email' => $email, 'password' => $password]);
             if ($checkLogin == true) {
+              	Session::flash('success', 'success sign up');
                 return redirect()->route('my-account');
             } else {
                 Session::flash('error', 'sai email va mat khau');

@@ -34,6 +34,7 @@ function onclick(item) {
         var json = JSON.stringify(data);
         if (!localStorage.getItem("cart")||localStorage.getItem("cart") == '[]') {
             localStorage.setItem("cart", json);
+          	show_quantity_and_price_mini_cart_wrapper();
         } 
         else {
             var cartStorage = JSON.parse(localStorage.getItem("cart"));
@@ -110,19 +111,21 @@ miniCart.onclick = function(){
     }
 }
 // show quantity and price mini_cart_wrapper
-function show_quantity_and_price_mini_cart_wrapper (){
-    var arrList = JSON.parse(localStorage.getItem('cart'));
-    var count_cart_item = arrList.length;
-    document.querySelector('.cart_count').innerText = count_cart_item
-    var price = 0;
+if (localStorage.getItem('cart')){
+  function show_quantity_and_price_mini_cart_wrapper (){
+      var arrList = JSON.parse(localStorage.getItem('cart'));
+      var count_cart_item = arrList.length;
+      document.querySelector('.cart_count').innerText = count_cart_item
+      var price = 0;
 
-    arrList.forEach(sum_price)
-    function sum_price(item,index){
-        var price_item = item.price
-        price_item = price_item.slice(1);
-        price_item = Number(price_item);
-        price += price_item*Number(item.quantity);
-    }
-    document.querySelector('.cart_price').innerText = price;
+      arrList.forEach(sum_price)
+      function sum_price(item,index){
+          var price_item = item.price
+          price_item = price_item.slice(1);
+          price_item = Number(price_item);
+          price += price_item*Number(item.quantity);
+      }
+      document.querySelector('.cart_price').innerText = price;
+  }
+  show_quantity_and_price_mini_cart_wrapper();
 }
-show_quantity_and_price_mini_cart_wrapper();
